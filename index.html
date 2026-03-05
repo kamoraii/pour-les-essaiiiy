@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dans l'ombre</title>
+
+<link rel="icon" type="image/png" href="icone.png">
+<link rel="apple-touch-icon" href="icone.png">
+
+<style>
+
+body{
+margin:0;
+height:100vh;
+overflow:hidden;
+font-family:Arial, Helvetica, sans-serif;
+background:black;
+color:white;
+}
+
+/* IMAGE DE FOND */
+
+.background{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background-image:url("fondecran.jpg");
+background-size:cover;
+background-position:center;
+z-index:-2;
+}
+
+/* VOILE SOMBRE */
+
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.65);
+z-index:-1;
+}
+
+/* TEXTE */
+
+.intro{
+position:absolute;
+top:40%;
+width:100%;
+text-align:center;
+font-size:2rem;
+letter-spacing:2px;
+text-shadow:0 0 15px rgba(0,0,0,0.9),0 0 25px rgba(0,0,0,0.8);
+}
+
+/* ZONE STAR WARS */
+
+.crawl-container{
+position:absolute;
+bottom:-100%;
+width:100%;
+height:100%;
+perspective:400px;
+display:none;
+}
+
+.crawl{
+position:absolute;
+bottom:0;
+width:100%;
+transform-origin:50% 100%;
+transform:rotateX(25deg);
+animation:crawl 35s linear forwards;
+font-size:1.4rem;
+text-align:center;
+line-height:1.8;
+padding:0 15%;
+text-shadow:0 0 10px rgba(0,0,0,0.9);
+}
+
+@keyframes crawl{
+0%{bottom:-100%;}
+100%{bottom:200%;}
+}
+
+/* BOUTON */
+
+.enter{
+position:absolute;
+bottom:40px;
+left:50%;
+transform:translateX(-50%);
+padding:12px 26px;
+border:2px solid white;
+background:transparent;
+color:white;
+font-size:1rem;
+letter-spacing:3px;
+cursor:pointer;
+display:none;
+transition:0.3s;
+}
+
+.enter:hover{
+background:white;
+color:black;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="background"></div>
+<div class="overlay"></div>
+
+<div class="intro" id="intro">
+Longtemps avant que le monde ne s’allume…
+</div>
+
+<div class="crawl-container" id="crawlContainer">
+<div class="crawl">
+
+<p>nous sommes déjà là.</p>
+
+<p>
+Les mains dans le froid,<br>
+les genoux dans la poussière,<br>
+portant un univers entier<br>
+qui n’a pas le droit de vaciller.
+</p>
+
+<p>
+Chaque jour nous combattons la chute.<br>
+En silence. Sans témoin.
+</p>
+
+<p>
+Puis la foule crie.<br>
+La lumière explose.
+</p>
+
+<p>
+Et nous regardons depuis les bords,<br>
+les bras lourds,<br>
+le cœur étrangement plein.
+</p>
+
+<p>
+Et demain ?<br>
+On recommence.
+</p>
+
+</div>
+</div>
+
+<button class="enter" id="enterBtn">ENTRER</button>
+
+<script>
+
+/* apparition du crawl */
+
+setTimeout(()=>{
+document.getElementById("intro").style.display="none";
+document.getElementById("crawlContainer").style.display="block";
+},4000);
+
+/* apparition du bouton */
+
+setTimeout(()=>{
+document.getElementById("enterBtn").style.display="block";
+},12000);
+
+/* action bouton */
+
+document.getElementById("enterBtn").onclick=function(){
+alert("Ici nous ajouterons la suite du site plus tard.");
+}
+
+</script>
+
+</body>
+</html>
