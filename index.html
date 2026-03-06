@@ -6,8 +6,8 @@
 
 <title>Dans l'ombre</title>
 
-<link rel="icon" type="image/png" href="icone.jpeg">
-<link rel="apple-touch-icon" href="icone.jpeg">
+<link rel="icon" type="image/png" href="icone.png">
+<link rel="apple-touch-icon" href="icone.png">
 
 <style>
 
@@ -46,7 +46,7 @@ background:rgba(0,0,0,0.65);
 z-index:-1;
 }
 
-/* TEXTE */
+/* TEXTE INTRO */
 
 .intro{
 position:absolute;
@@ -75,8 +75,8 @@ bottom:0;
 width:100%;
 transform-origin:50% 100%;
 transform:rotateX(25deg);
-animation:crawl 35s linear forwards;
-font-size:1.4rem;
+animation:crawl 55s linear forwards;
+font-size:1.6rem;
 text-align:center;
 line-height:1.8;
 padding:0 15%;
@@ -95,20 +95,22 @@ position:absolute;
 bottom:40px;
 left:50%;
 transform:translateX(-50%);
-padding:12px 26px;
-border:2px solid white;
+padding:10px 22px;
+border:1px solid white;
 background:transparent;
 color:white;
-font-size:1rem;
-letter-spacing:3px;
+font-size:0.9rem;
+letter-spacing:4px;
 cursor:pointer;
 display:none;
 transition:0.3s;
+opacity:0.8;
 }
 
 .enter:hover{
 background:white;
 color:black;
+opacity:1;
 }
 
 </style>
@@ -126,40 +128,63 @@ Longtemps avant que le monde ne s’allume…
 <div class="crawl-container" id="crawlContainer">
 <div class="crawl">
 
-<p>nous sommes déjà là.</p>
+<p>nous étions déjà là.</p>
 
 <p>
 Les mains dans le froid,<br>
-les genoux dans la poussière,<br>
+les genoux dans la poussière,
+</p>
+
+<p>
 portant un univers entier<br>
-qui n’a pas le droit de vaciller.
+qui n’avait pas le droit de vaciller.
 </p>
 
 <p>
-Chaque jour nous combattons la chute.<br>
-En silence. Sans témoin.
+Nous combattions sans relâche la chute.
 </p>
 
 <p>
-Puis la foule crie.<br>
-La lumière explose.
+En silence.
 </p>
 
 <p>
-Et nous regardons depuis les bords,<br>
-les bras lourds,<br>
-le cœur étrangement plein.
+Laissant un peu de nous<br>
+dans chaque recoin
 </p>
 
 <p>
-Et demain ?<br>
-On recommence.
+pour que le rêve tienne debout.
+</p>
+
+<p>
+Ceux qui tombent ensemble<br>
+ne tombent jamais seuls.
+</p>
+
+<p>
+Fiers d’un orgueil<br>
+que rien n’efface.
+</p>
+
+<p>
+Et puis la rumeur<br>
+commença à gronder —
+</p>
+
+<p>
+jusqu’à ce que l’artiste<br>
+franchisse le cercle incandescent.
+</p>
+
+<p>
+Et le monde s’embrase.
 </p>
 
 </div>
 </div>
 
-<button class="enter" id="enterBtn">ENTRER</button>
+<button class="enter" id="enterBtn">go on?</button>
 
 <script>
 
@@ -174,7 +199,7 @@ document.getElementById("crawlContainer").style.display="block";
 
 setTimeout(()=>{
 document.getElementById("enterBtn").style.display="block";
-},12000);
+},20000);
 
 /* action bouton */
 
