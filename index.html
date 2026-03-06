@@ -4,114 +4,23 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Avant que le monde ne s’allume</title>
-
-<link rel="icon" type="image/jpeg" href="icone.jpeg">
-<link rel="apple-touch-icon" href="icone.jpeg">
+<title>Test fond écran</title>
 
 <style>
 
 body{
 margin:0;
 height:100vh;
-overflow:hidden;
-font-family:Arial, Helvetica, sans-serif;
-background:black;
-color:white;
-}
-
-/* IMAGE DE FOND /
-
-.background{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
 background-image:url("fondecran.jpg");
 background-size:cover;
 background-position:center;
-z-index:0;
-}
-
-/ VOILE SOMBRE /
-
-.overlay{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.65);
-z-index:1;
-}
-
-/ PHRASE INTRO /
-
-.intro{
-position:absolute;
-top:45%;
-width:100%;
-text-align:center;
-font-size:2.2rem;
-letter-spacing:2px;
-text-shadow:0 0 15px rgba(0,0,0,0.9),0 0 25px rgba(0,0,0,0.8);
-z-index:2;
-}
-
-/ ZONE CRAWL /
-
-.crawl-container{
-position:absolute;
-bottom:-100%;
-width:100%;
-height:100%;
-perspective:400px;
-display:none;
-z-index:2;
-}
-
-.crawl{
-position:absolute;
-bottom:0;
-width:100%;
-transform-origin:50% 100%;
-transform:rotateX(25deg);
-animation:crawl 55s linear forwards;
-font-size:2.2rem;
-text-align:center;
-line-height:1.8;
-padding:0 10%;
-text-shadow:0 0 10px rgba(0,0,0,0.9);
-}
-
-@keyframes crawl{
-0%{bottom:-100%;}
-100%{bottom:200%;}
-}
-
-/ BOUTON /
-
-.enter{
-position:absolute;
-bottom:30px;
-left:50%;
-transform:translateX(-50%);
-padding:8px 18px;
-border:none;
-background:transparent;
+display:flex;
+align-items:center;
+justify-content:center;
+font-family:Arial, Helvetica, sans-serif;
 color:white;
-font-size:0.9rem;
-letter-spacing:3px;
-cursor:pointer;
-display:none;
-opacity:0.7;
-transition:0.4s;
-z-index:3;
-}
-
-.enter:hover{
-opacity:1;
+font-size:2rem;
+text-shadow:0 0 10px black;
 }
 
 </style>
@@ -119,90 +28,7 @@ opacity:1;
 
 <body>
 
-<div class="background"></div>
-<div class="overlay"></div>
-
-<div class="intro" id="intro">
 Longtemps avant que le monde ne s’allume…
-</div>
-
-<div class="crawl-container" id="crawlContainer">
-<div class="crawl">
-
-<p>nous étions déjà là.</p>
-
-<p>
-Les mains dans le froid,<br>
-les genoux dans la poussière
-</p>
-
-<p>
-portant un univers entier<br>
-qui n’avait pas le droit de vaciller.
-</p>
-
-<p>
-Nous combattions sans relâche la chute.
-</p>
-
-<p>
-En silence.
-</p>
-
-<p>
-Laissant un peu de nous dans chaque recoin<br>
-pour que le rêve tienne debout.
-</p>
-
-<p>
-Ceux qui tombent ensemble<br>
-ne tombent jamais seuls.
-</p>
-
-<p>
-Fiers d’un orgueil que rien n’efface.
-</p>
-
-<p>
-Et puis la rumeur commença à gronder —
-</p>
-
-<p>
-jusqu’à ce que l’artiste franchisse<br>
-le cercle incandescent.
-</p>
-
-<p>
-Et le monde s’embrase.
-</p>
-
-</div>
-</div>
-
-<button class="enter" id="enterBtn">go on?</button>
-
-<script>
-
-/ démarrage du crawl /
-
-setTimeout(()=>{
-document.getElementById("intro").style.display="none";
-document.getElementById("crawlContainer").style.display="block";
-},900);
-
-/ apparition du bouton /
-
-setTimeout(()=>{
-document.getElementById("enterBtn").style.display="block";
-},30000);
-
-/ action bouton */
-
-document.getElementById("enterBtn").onclick=function(){
-alert("La suite du site sera ajoutée ici.");
-}
-
-</script>
 
 </body>
 </html>
