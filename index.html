@@ -53,9 +53,9 @@ position:absolute;
 top:45%;
 width:100%;
 text-align:center;
-font-size:2.2rem;
+font-size:2.4rem;
 letter-spacing:2px;
-text-shadow:0 0 15px rgba(0,0,0,0.9),0 0 25px rgba(0,0,0,0.8);
+text-shadow:0 0 15px rgba(0,0,0,0.9);
 }
 
 / ZONE CRAWL /
@@ -76,10 +76,10 @@ width:100%;
 transform-origin:50% 100%;
 transform:rotateX(25deg);
 animation:crawl 55s linear forwards;
-font-size:2.2rem;
+font-size:2.3rem;
 text-align:center;
-line-height:1.8;
-padding:0 10%;
+line-height:1.9;
+padding:0 12%;
 text-shadow:0 0 10px rgba(0,0,0,0.9);
 }
 
@@ -95,7 +95,7 @@ position:absolute;
 bottom:30px;
 left:50%;
 transform:translateX(-50%);
-padding:8px 18px;
+padding:6px 16px;
 border:none;
 background:transparent;
 color:white;
@@ -103,7 +103,7 @@ font-size:0.9rem;
 letter-spacing:3px;
 cursor:pointer;
 display:none;
-opacity:0.7;
+opacity:0.6;
 transition:0.4s;
 }
 
@@ -126,34 +126,51 @@ Longtemps avant que le monde ne s’allume…
 <div class="crawl-container" id="crawlContainer">
 <div class="crawl">
 
-<p>nous sommes déjà là.</p>
+<p>nous étions déjà là.</p>
 
 <p>
 Les mains dans le froid,<br>
-les genoux dans la poussière,<br>
+les genoux dans la poussière,
+</p>
+
+<p>
 portant un univers entier<br>
-qui n’a pas le droit de vaciller.
+qui n’avait pas le droit de vaciller.
 </p>
 
 <p>
-Chaque jour nous combattons la chute.<br>
-En silence. Sans témoin.
+Nous combattions sans relâche la chute.
 </p>
 
 <p>
-Puis la foule crie.<br>
-La lumière explose.
+En silence.
 </p>
 
 <p>
-Et nous regardons depuis les bords,<br>
-les bras lourds,<br>
-le cœur étrangement plein.
+Laissant un peu de nous dans chaque recoin<br>
+pour que le rêve tienne debout.
 </p>
 
 <p>
-Et demain ?<br>
-On recommence.
+Ceux qui tombent ensemble<br>
+ne tombent jamais seuls.
+</p>
+
+<p>
+Fiers d’un orgueil que rien n’efface.
+</p>
+
+<p>
+Et puis la rumeur commença à gronder —
+</p>
+
+<p>
+jusqu’à ce que l’artiste franchisse<br>
+le cercle incandescent.
+</p>
+
+<p>
+Et le monde s’embrase.
 </p>
 
 </div>
@@ -163,18 +180,18 @@ On recommence.
 
 <script>
 
-/ démarrage du crawl plus rapide /
+/ lancement du crawl presque immédiat /
 
 setTimeout(()=>{
 document.getElementById("intro").style.display="none";
 document.getElementById("crawlContainer").style.display="block";
 },900);
 
-/ bouton plus tard /
+/ apparition tardive du bouton /
 
 setTimeout(()=>{
 document.getElementById("enterBtn").style.display="block";
-},28000);
+},30000);
 
 / action bouton */
 
