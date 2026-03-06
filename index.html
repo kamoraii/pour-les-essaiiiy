@@ -16,13 +16,25 @@ margin:0;
 height:100vh;
 overflow:hidden;
 font-family:Arial, Helvetica, sans-serif;
-background-image:url(".background-image:url("./fondecran.jpg")
-background-size:cover;
-background-position:center;
+background:black;
 color:white;
 }
 
-/* voile sombre /
+/* IMAGE DE FOND /
+
+.background{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background-image:url("fondecran.jpg");
+background-size:cover;
+background-position:center;
+z-index:-2;
+}
+
+/ VOILE SOMBRE /
 
 .overlay{
 position:fixed;
@@ -31,59 +43,52 @@ left:0;
 width:100%;
 height:100%;
 background:rgba(0,0,0,0.65);
+z-index:-1;
 }
 
-/ intro /
+/ PHRASE INTRO /
 
 .intro{
 position:absolute;
 top:45%;
 width:100%;
 text-align:center;
-font-size:1.6rem;
+font-size:2.2rem;
 letter-spacing:2px;
-text-shadow:0 0 15px rgba(0,0,0,0.9);
+text-shadow:0 0 15px rgba(0,0,0,0.9),0 0 25px rgba(0,0,0,0.8);
 }
 
-/ conteneur /
+/ ZONE CRAWL /
 
 .crawl-container{
 position:absolute;
-bottom:0;
+bottom:-100%;
 width:100%;
 height:100%;
 perspective:400px;
 display:none;
-overflow:hidden;
 }
-
-/ texte /
 
 .crawl{
 position:absolute;
+bottom:0;
 width:100%;
-bottom:-300px;
+transform-origin:50% 100%;
 transform:rotateX(25deg);
-font-size:1.7rem;
+animation:crawl 55s linear forwards;
+font-size:2.2rem;
 text-align:center;
-line-height:1.9;
+line-height:1.8;
 padding:0 10%;
 text-shadow:0 0 10px rgba(0,0,0,0.9);
-animation:scrollText 60s linear forwards;
 }
 
-/ animation /
-
-@keyframes scrollText{
-0%{
-bottom:-300px;
-}
-100%{
-bottom:200%;
-}
+@keyframes crawl{
+0%{bottom:-100%;}
+100%{bottom:200%;}
 }
 
-/ bouton /
+/ BOUTON /
 
 .enter{
 position:absolute;
@@ -99,6 +104,7 @@ letter-spacing:3px;
 cursor:pointer;
 display:none;
 opacity:0.7;
+transition:0.4s;
 }
 
 .enter:hover{
@@ -110,6 +116,7 @@ opacity:1;
 
 <body>
 
+<div class="background"></div>
 <div class="overlay"></div>
 
 <div class="intro" id="intro">
@@ -119,51 +126,34 @@ Longtemps avant que le monde ne s’allume…
 <div class="crawl-container" id="crawlContainer">
 <div class="crawl">
 
-<p>nous étions déjà là.</p>
+<p>nous sommes déjà là.</p>
 
 <p>
 Les mains dans le froid,<br>
-les genoux dans la poussière
-</p>
-
-<p>
+les genoux dans la poussière,<br>
 portant un univers entier<br>
-qui n’avait pas le droit de vaciller.
+qui n’a pas le droit de vaciller.
 </p>
 
 <p>
-Nous combattions sans relâche la chute.
+Chaque jour nous combattons la chute.<br>
+En silence. Sans témoin.
 </p>
 
 <p>
-En silence.
+Puis la foule crie.<br>
+La lumière explose.
 </p>
 
 <p>
-Laissant un peu de nous dans chaque recoin<br>
-pour que le rêve tienne debout.
+Et nous regardons depuis les bords,<br>
+les bras lourds,<br>
+le cœur étrangement plein.
 </p>
 
 <p>
-Ceux qui tombent ensemble<br>
-ne tombent jamais seuls.
-</p>
-
-<p>
-Fiers d’un orgueil que rien n’efface.
-</p>
-
-<p>
-Et puis la rumeur commença à gronder —
-</p>
-
-<p>
-jusqu’à ce que l’artiste franchisse<br>
-le cercle incandescent.
-</p>
-
-<p>
-Et le monde s’embrase.
+Et demain ?<br>
+On recommence.
 </p>
 
 </div>
@@ -173,18 +163,20 @@ Et le monde s’embrase.
 
 <script>
 
-/ démarrage crawl /
+/ démarrage du crawl plus rapide /
 
 setTimeout(()=>{
 document.getElementById("intro").style.display="none";
 document.getElementById("crawlContainer").style.display="block";
-},1500);
+},900);
 
-/ apparition bouton */
+/ bouton plus tard /
 
 setTimeout(()=>{
 document.getElementById("enterBtn").style.display="block";
-},35000);
+},28000);
+
+/ action bouton */
 
 document.getElementById("enterBtn").onclick=function(){
 alert("La suite du site sera ajoutée ici.");
