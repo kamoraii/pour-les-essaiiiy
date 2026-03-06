@@ -28,10 +28,10 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-background-image:url("./fondecran.jpg");
+background-image:url("fondecran.jpg");
 background-size:cover;
 background-position:center;
-z-index:-2;
+z-index:0;
 }
 
 / VOILE SOMBRE /
@@ -43,7 +43,7 @@ left:0;
 width:100%;
 height:100%;
 background:rgba(0,0,0,0.65);
-z-index:-1;
+z-index:1;
 }
 
 / PHRASE INTRO /
@@ -53,9 +53,10 @@ position:absolute;
 top:45%;
 width:100%;
 text-align:center;
-font-size:2.4rem;
+font-size:2.2rem;
 letter-spacing:2px;
 text-shadow:0 0 15px rgba(0,0,0,0.9),0 0 25px rgba(0,0,0,0.8);
+z-index:2;
 }
 
 / ZONE CRAWL /
@@ -67,6 +68,7 @@ width:100%;
 height:100%;
 perspective:400px;
 display:none;
+z-index:2;
 }
 
 .crawl{
@@ -75,10 +77,10 @@ bottom:0;
 width:100%;
 transform-origin:50% 100%;
 transform:rotateX(25deg);
-animation:crawl 60s linear forwards;
-font-size:2.3rem;
+animation:crawl 55s linear forwards;
+font-size:2.2rem;
 text-align:center;
-line-height:1.9;
+line-height:1.8;
 padding:0 10%;
 text-shadow:0 0 10px rgba(0,0,0,0.9);
 }
@@ -95,16 +97,17 @@ position:absolute;
 bottom:30px;
 left:50%;
 transform:translateX(-50%);
-padding:6px 16px;
+padding:8px 18px;
 border:none;
 background:transparent;
 color:white;
 font-size:0.9rem;
-letter-spacing:4px;
+letter-spacing:3px;
 cursor:pointer;
 display:none;
-opacity:0.6;
+opacity:0.7;
 transition:0.4s;
+z-index:3;
 }
 
 .enter:hover{
@@ -187,11 +190,11 @@ document.getElementById("intro").style.display="none";
 document.getElementById("crawlContainer").style.display="block";
 },900);
 
-/ apparition bouton /
+/ apparition du bouton /
 
 setTimeout(()=>{
 document.getElementById("enterBtn").style.display="block";
-},32000);
+},30000);
 
 / action bouton */
 
