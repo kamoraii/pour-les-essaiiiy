@@ -1,186 +1,225 @@
-472"}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Dans l'ombre</title>
-
-<link rel="icon" type="image/png" href="icone.png">
-<link rel="apple-touch-icon" href="icone.png">
+<link rel="icon" type="image/jpeg" href="icone.jpeg">
+<link rel="apple-touch-icon" href="icone.jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 
-body{
-margin:0;
-height:100vh;
-overflow:hidden;
-font-family:Arial, Helvetica, sans-serif;
-background:black;
-color:white;
-}
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-/* IMAGE DE FOND /
+  body {
+    height: 100vh;
+    overflow: hidden;
+    background: #000;
+    color: #e8dcc8;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+  }
 
-.background{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background-image:url("fondecran.jpg");
-background-size:cover;
-background-position:center;
-z-index:-2;
-}
+  .background {
+    position: fixed;
+    inset: 0;
+    background-image: url("fondecran.jpg");
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+    filter: grayscale(40%) contrast(1.1);
+  }
 
-/ VOILE SOMBRE /
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.75) 0%,
+      rgba(0,0,0,0.55) 40%,
+      rgba(0,0,0,0.80) 100%
+    );
+    z-index: 1;
+  }
 
-.overlay{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.65);
-z-index:-1;
-}
+  .grain {
+    position: fixed;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-size: 150px;
+  }
 
-/ ZONE STAR WARS /
+  .scene {
+    position: fixed;
+    inset: 0;
+    z-index: 3;
+    perspective: 420px;
+    perspective-origin: 50% 100%;
+    overflow: hidden;
+  }
 
-.crawl-container{
-position:absolute;
-bottom:-100%;
-width:100%;
-height:100%;
-perspective:400px;
-}
+  .crawl-wrapper {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 80%;
+    max-width: 960px;
+    transform: translateX(-50%) rotateX(20deg);
+    transform-origin: 50% 100%;
+    animation: none;
+    padding-bottom: 2vh;
+  }
 
-.crawl{
-position:absolute;
-bottom:0;
-width:100%;
-transform-origin:50% 100%;
-transform:rotateX(25deg);
-animation:crawl 55s linear forwards;
-font-size:2rem;
-text-align:center;
-line-height:2;
-padding:0 20%;
-text-shadow:0 0 10px rgba(0,0,0,0.9);
-}
+  @keyframes crawl {
+    0%   { bottom: 0%;   opacity: 1; }
+    92%  { opacity: 1; }
+    100% { bottom: 230%; opacity: 0; }
+  }
 
-@keyframes crawl{
-0%{bottom:-100%;}
-100%{bottom:200%;}
-}
+  .crawl-wrapper p {
+    text-align: center;
+    font-size: 2.8rem;
+    font-weight: 300;
+    line-height: 2;
+    letter-spacing: 0.04em;
+    margin-bottom: 2.6em;
+    text-shadow:
+      0 0 30px rgba(0,0,0,1),
+      0 0 60px rgba(0,0,0,0.9),
+      0 2px 4px rgba(0,0,0,0.9);
+    color: #e8dcc8;
+  }
 
-/ BOUTON */
+  .crawl-wrapper p.italic {
+    font-style: italic;
+    font-weight: 300;
+  }
 
-.enter{
-position:absolute;
-right:40px;
-bottom:120px;
-padding:6px 14px;
-border:1px solid white;
-background:transparent;
-color:white;
-font-size:0.8rem;
-letter-spacing:3px;
-cursor:pointer;
-opacity:0.7;
-transition:0.3s;
-}
+  .crawl-wrapper p.final {
+    font-family: 'Cinzel', serif;
+    font-size: 3.4rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: #fff;
+    text-shadow:
+      0 0 40px rgba(255,220,150,0.4),
+      0 0 80px rgba(255,180,80,0.2),
+      0 2px 4px rgba(0,0,0,1);
+    margin-top: 1em;
+  }
 
-.enter:hover{
-opacity:1;
-background:white;
-color:black;
-}
+  .btn-continue {
+    position: fixed;
+    bottom: 38px;
+    right: 52px;
+    z-index: 10;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(232, 220, 200, 0.45);
+    color: rgba(232, 220, 200, 0.55);
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: lowercase;
+    cursor: pointer;
+    padding: 4px 2px 6px;
+    opacity: 0;
+    transition: opacity 1.2s ease, color 0.4s ease, border-color 0.4s ease;
+    pointer-events: none;
+  }
+
+  .btn-continue.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .btn-continue:hover {
+    color: rgba(232, 220, 200, 0.95);
+    border-bottom-color: rgba(232, 220, 200, 0.8);
+  }
 
 </style>
 </head>
 
 <body>
 
-<div class="background"></div>
-<div class="overlay"></div>
+  <div class="background"></div>
+  <div class="overlay"></div>
+  <div class="grain"></div>
 
-<div class="crawl-container">
-<div class="crawl">
+  <audio autoplay>
+    <source src="musique_intro.mp3" type="audio/mpeg">
+  </audio>
 
-<p>
-Longtemps avant que le monde ne s’allume…
-</p>
+  <div class="scene">
+    <div class="crawl-wrapper">
 
-<p>
-nous étions déjà là.
-</p>
+      <p class="italic">Longtemps avant que le monde ne s'allume…</p>
 
-<p>
-Les mains dans le froid,<br>
-les genoux dans la poussière,
-</p>
+      <p>nous étions déjà là.</p>
 
-<p>
-portant un univers entier<br>
-qui n’avait pas le droit de vaciller.
-</p>
+      <p>
+        Les mains dans le froid,<br>
+        les genoux dans la poussière,<br>
+        portant un univers entier<br>
+        qui n'avait pas le droit de vaciller.
+      </p>
 
-<p>
-Nous combattions sans relâche la chute.
-</p>
+      <p>
+        Nous combattions sans relâche la chute.<br>
+        En silence.
+      </p>
 
-<p>
-En silence.
-</p>
+      <p>
+        Laissant un peu de nous dans chaque recoin<br>
+        pour que le rêve tienne debout.
+      </p>
 
-<p>
-Laissant un peu de nous<br>
-dans chaque recoin
-</p>
+      <p>
+        Ceux qui tombent ensemble<br>
+        ne tombent jamais seuls.
+      </p>
 
-<p>
-pour que le rêve tienne debout.
-</p>
+      <p class="italic">
+        Fiers d'un orgueil<br>
+        que rien n'efface.
+      </p>
 
-<p>
-Ceux qui tombent ensemble<br>
-ne tombent jamais seuls.
-</p>
+      <p>
+        Et puis la rumeur commença à gronder —<br>
+        jusqu'à ce que l'artiste franchisse<br>
+        le cercle incandescent.
+      </p>
 
-<p>
-Fiers d’un orgueil<br>
-que rien n’efface.
-</p>
+      <p class="final">Et le monde s'embrase.</p>
 
-<p>
-Et puis la rumeur<br>
-commença à gronder —
-</p>
+    </div>
+  </div>
 
-<p>
-jusqu’à ce que l’artiste<br>
-franchisse le cercle incandescent.
-</p>
+  <button class="btn-continue" id="btnContinue" onclick="window.location.href='page2.html'">
+    go on?
+  </button>
 
-<p>
-Et le monde s’embrase.
-</p>
-
-</div>
-</div>
-
-<button class="enter" id="enterBtn">go on?</button>
-
-<script>
-
-document.getElementById("enterBtn").onclick=function(){
-alert("La suite du site sera ajoutée ici.");
-}
-
-</script>
+  <script>
+    const crawl = document.querySelector('.crawl-wrapper');
+    // Délai de 2s pour laisser la page se charger avant de démarrer
+    setTimeout(() => {
+      crawl.style.animation = 'crawl 48s linear forwards';
+    }, 2000);
+    // Bouton 16s après le début du crawl
+    setTimeout(() => {
+      document.getElementById('btnContinue').classList.add('visible');
+    }, 18000);
+  </script>
 
 </body>
-</
+</html>
