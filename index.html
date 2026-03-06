@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Avant que le monde ne s’allume</title>
+<title>Dans l'ombre</title>
 
-<link rel="icon" type="image/jpeg" href="icone.jpeg">
-<link rel="apple-touch-icon" href="icone.jpeg">
+<link rel="icon" type="image/png" href="icone.png">
+<link rel="apple-touch-icon" href="icone.png">
 
 <style>
 
@@ -20,7 +20,7 @@ background:black;
 color:white;
 }
 
-/* IMAGE DE FOND /
+/* IMAGE DE FOND */
 
 .background{
 position:fixed;
@@ -34,7 +34,7 @@ background-position:center;
 z-index:-2;
 }
 
-/ VOILE SOMBRE /
+/* VOILE SOMBRE */
 
 .overlay{
 position:fixed;
@@ -46,19 +46,19 @@ background:rgba(0,0,0,0.65);
 z-index:-1;
 }
 
-/ PHRASE INTRO /
+/* TEXTE */
 
 .intro{
 position:absolute;
-top:45%;
+top:40%;
 width:100%;
 text-align:center;
-font-size:2.2rem;
+font-size:2rem;
 letter-spacing:2px;
 text-shadow:0 0 15px rgba(0,0,0,0.9),0 0 25px rgba(0,0,0,0.8);
 }
 
-/ ZONE CRAWL /
+/* ZONE STAR WARS */
 
 .crawl-container{
 position:absolute;
@@ -75,11 +75,11 @@ bottom:0;
 width:100%;
 transform-origin:50% 100%;
 transform:rotateX(25deg);
-animation:crawl 55s linear forwards;
-font-size:2.2rem;
+animation:crawl 35s linear forwards;
+font-size:1.4rem;
 text-align:center;
 line-height:1.8;
-padding:0 10%;
+padding:0 15%;
 text-shadow:0 0 10px rgba(0,0,0,0.9);
 }
 
@@ -88,27 +88,27 @@ text-shadow:0 0 10px rgba(0,0,0,0.9);
 100%{bottom:200%;}
 }
 
-/ BOUTON /
+/* BOUTON */
 
 .enter{
 position:absolute;
-bottom:30px;
+bottom:40px;
 left:50%;
 transform:translateX(-50%);
-padding:8px 18px;
-border:none;
+padding:12px 26px;
+border:2px solid white;
 background:transparent;
 color:white;
-font-size:0.9rem;
+font-size:1rem;
 letter-spacing:3px;
 cursor:pointer;
 display:none;
-opacity:0.7;
-transition:0.4s;
+transition:0.3s;
 }
 
 .enter:hover{
-opacity:1;
+background:white;
+color:black;
 }
 
 </style>
@@ -159,27 +159,27 @@ On recommence.
 </div>
 </div>
 
-<button class="enter" id="enterBtn">go on?</button>
+<button class="enter" id="enterBtn">ENTRER</button>
 
 <script>
 
-/ démarrage du crawl plus rapide /
+/* apparition du crawl */
 
 setTimeout(()=>{
 document.getElementById("intro").style.display="none";
 document.getElementById("crawlContainer").style.display="block";
-},900);
+},4000);
 
-/ bouton plus tard /
+/* apparition du bouton */
 
 setTimeout(()=>{
 document.getElementById("enterBtn").style.display="block";
-},28000);
+},12000);
 
-/ action bouton */
+/* action bouton */
 
 document.getElementById("enterBtn").onclick=function(){
-alert("La suite du site sera ajoutée ici.");
+alert("Ici nous ajouterons la suite du site plus tard.");
 }
 
 </script>
