@@ -1,7 +1,7 @@
-51742"}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -52,7 +52,7 @@ background:linear-gradient(
 to bottom,
 rgba(0,0,0,0.75),
 rgba(0,0,0,0.55),
-rgba(0,0,0,0.85)
+rgba(0,0,0,0.80)
 );
 z-index:1;
 }
@@ -69,15 +69,28 @@ background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='htt
 background-size:150px;
 }
 
-/ SCÈNE 3D /
+/ SCENE 3D /
 
 .scene{
 position:fixed;
 inset:0;
 z-index:3;
-perspective:300px;
+perspective:320px;
 perspective-origin:50% 100%;
 overflow:hidden;
+}
+
+/ MASQUE HORIZON /
+
+.scene::after{
+content:"";
+position:absolute;
+top:0;
+left:0;
+right:0;
+height:45%;
+background:linear-gradient(to bottom,rgba(0,0,0,1),rgba(0,0,0,0));
+pointer-events:none;
 }
 
 / BLOC TEXTE /
@@ -85,13 +98,13 @@ overflow:hidden;
 .crawl-wrapper{
 
 position:absolute;
-bottom:-300%;
+bottom:-340%;
 left:50%;
 
-width:110%;
-max-width:1000px;
+width:125%;
+max-width:1100px;
 
-transform:translateX(-50%) rotateX(25deg);
+transform:translateX(-50%) rotateX(24deg);
 transform-origin:50% 100%;
 
 animation:none;
@@ -103,7 +116,7 @@ animation:none;
 @keyframes crawl{
 
 0%{
-bottom:-300%;
+bottom:-340%;
 opacity:1;
 }
 
@@ -112,7 +125,7 @@ opacity:1;
 }
 
 100%{
-bottom:230%;
+bottom:240%;
 opacity:0;
 }
 
@@ -124,7 +137,7 @@ opacity:0;
 
 text-align:center;
 
-font-size:clamp(1.8rem,2.5vw,3rem);
+font-size:clamp(1.8rem,2.4vw,3rem);
 
 line-height:2;
 
@@ -149,7 +162,9 @@ font-style:italic;
 
 font-family:'Cinzel',serif;
 
-font-size:clamp(2.4rem,5vw,3.4rem);
+font-size:clamp(2.4rem,6vw,3.4rem);
+
+font-weight:600;
 
 letter-spacing:0.12em;
 
@@ -271,20 +286,21 @@ go on?
 
 <script>
 
-window.addEventListener("load",()=>{
+window.addEventListener("load",function(){
 
-setTimeout(()=>{
+setTimeout(function(){
 document.querySelector(".crawl-wrapper")
 .style.animation="crawl 60s linear forwards";
-},1000);
+},900);
 
-setTimeout(()=>{
+setTimeout(function(){
 document.getElementById("btnContinue")
 .classList.add("visible");
-},47000);
+},44000);
 
 });
 
 </script>
 
 </body>
+</html>
