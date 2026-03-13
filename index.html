@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Dans l'ombre</title>
+<title>Dans l'ombre — générique</title>
 
 <link rel="icon" type="image/jpeg" href="icone.jpeg">
 <link rel="apple-touch-icon" href="icone.jpeg">
@@ -13,14 +12,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:300,400,600&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
 
-*, *::before, ::after {
-box-sizing:border-box;
+{
 margin:0;
 padding:0;
+box-sizing:border-box;
 }
 
 body{
@@ -40,7 +39,7 @@ background-image:url("fondecran.jpg");
 background-size:cover;
 background-position:center;
 z-index:0;
-filter:grayscale(40%) contrast(1.1);
+filter:grayscale(40%) contrast(1.1) brightness(0.9);
 }
 
 / VOILE /
@@ -48,13 +47,20 @@ filter:grayscale(40%) contrast(1.1);
 .overlay{
 position:fixed;
 inset:0;
-background:linear-gradient(
-to bottom,
-rgba(0,0,0,0.75),
-rgba(0,0,0,0.55),
-rgba(0,0,0,0.80)
-);
+background:radial-gradient(circle at 50% 30%, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.85) 100%);
 z-index:1;
+}
+
+/ GRAIN /
+
+.grain{
+position:fixed;
+inset:0;
+z-index:2;
+pointer-events:none;
+opacity:0.06;
+background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+background-size:180px;
 }
 
 / SCENE /
@@ -64,7 +70,7 @@ position:fixed;
 inset:0;
 z-index:3;
 perspective:420px;
-perspective-origin:50% 100%;
+perspective-origin:50% 80%;
 overflow:hidden;
 }
 
@@ -72,87 +78,96 @@ overflow:hidden;
 
 .crawl-wrapper{
 position:absolute;
-bottom:-260%;
+top:100%;
 left:50%;
-width:95%;
-max-width:1200px;
-transform:translateX(-50%) rotateX(20deg);
+width:90%;
+transform:translateX(-50%) rotateX(22deg);
 transform-origin:50% 100%;
-animation:crawl 60s linear forwards;
-padding-bottom:2vh;
+animation:crawl 55s linear forwards;
+text-align:center;
 }
 
 / ANIMATION /
 
 @keyframes crawl{
+
 0%{
-bottom:-260%;
+top:100%;
 opacity:1;
 }
-92%{
+
+90%{
 opacity:1;
 }
+
 100%{
-bottom:230%;
+top:-250%;
 opacity:0;
 }
+
 }
+
+/ PARAGRAPHES /
 
 .crawl-wrapper p{
-text-align:center;
-font-size:2.8rem;
+font-size:clamp(2rem,4vw,3.2rem);
 font-weight:300;
-line-height:2;
+line-height:1.6;
 letter-spacing:0.04em;
-margin-bottom:2.6em;
+margin-bottom:2.5rem;
+color:#f0e6d2;
 text-shadow:
-0 0 30px rgba(0,0,0,1),
+0 0 30px rgba(230,190,140,0.4),
 0 0 60px rgba(0,0,0,0.9),
-0 2px 4px rgba(0,0,0,0.9);
-color:#e8dcc8;
+0 8px 20px #000;
 }
 
-.crawl-wrapper p.italic{
-font-style:italic;
-}
+/ DERNIÈRE PHRASE /
 
 .crawl-wrapper p.final{
 font-family:'Cinzel',serif;
-font-size:3.4rem;
-font-weight:600;
-letter-spacing:0.12em;
-color:#fff;
+font-size:clamp(3rem,6vw,4rem);
+font-weight:700;
+letter-spacing:0.15em;
+text-transform:uppercase;
+color:#fff7e6;
 text-shadow:
-0 0 40px rgba(255,220,150,0.4),
-0 0 80px rgba(255,180,80,0.2),
-0 2px 4px rgba(0,0,0,1);
-margin-top:1em;
+0 0 80px rgba(255,200,120,0.7),
+0 0 150px rgba(255,160,60,0.5),
+0 12px 30px #000;
 }
 
 / BOUTON */
 
 .btn-continue{
 position:fixed;
-bottom:38px;
-right:52px;
-z-index:10;
+bottom:32px;
+right:42px;
+z-index:20;
 background:transparent;
 border:none;
-border-bottom:1px solid rgba(232,220,200,0.45);
-color:rgba(232,220,200,0.55);
+border-bottom:1px solid rgba(210,190,160,0.4);
+color:rgba(220,200,170,0.5);
 font-family:'Cinzel',serif;
-font-size:0.72rem;
-letter-spacing:0.22em;
+font-size:0.9rem;
+letter-spacing:0.3em;
 cursor:pointer;
-padding:4px 2px 6px;
+padding:6px 4px 8px;
 opacity:0;
-transition:opacity 1.2s ease;
+transition:opacity 1.8s ease;
 pointer-events:none;
 }
 
 .btn-continue.visible{
 opacity:1;
 pointer-events:auto;
+}
+
+audio{
+position:absolute;
+width:0;
+height:0;
+opacity:0;
 }
 
 </style>
@@ -162,8 +177,9 @@ pointer-events:auto;
 
 <div class="background"></div>
 <div class="overlay"></div>
+<div class="grain"></div>
 
-<audio autoplay playsinline>
+<audio loop playsinline id="introAudio">
 <source src="musique_intro.mp3" type="audio/mpeg">
 </audio>
 
@@ -171,7 +187,7 @@ pointer-events:auto;
 
 <div class="crawl-wrapper">
 
-<p class="italic">Longtemps avant que le monde ne s'allume…</p>
+<p>Longtemps avant que le monde<br>ne s'allume…</p>
 
 <p>nous étions déjà là.</p>
 
@@ -188,7 +204,7 @@ En silence.
 </p>
 
 <p>
-Laissant un peu de nous dans chaque recoin<br>
+Laissant un peu de nous dans chaque recoin,<br>
 pour que le rêve tienne debout.
 </p>
 
@@ -197,10 +213,7 @@ Ceux qui tombent ensemble<br>
 ne tombent jamais seuls.
 </p>
 
-<p class="italic">
-Fiers d'un orgueil<br>
-que rien n'efface.
-</p>
+<p>Fiers d'un orgueil que rien n'efface.</p>
 
 <p>
 Et puis la rumeur commença à gronder —<br>
@@ -208,22 +221,24 @@ jusqu'à ce que l'artiste franchisse<br>
 le cercle incandescent.
 </p>
 
-<p class="final">Et le monde s'embrase.</p>
+<p class="final">ET LE MONDE S'EMBRASE</p>
 
 </div>
 
 </div>
 
-<button class="btn-continue" id="btnContinue"
-onclick="window.location.href='page2.html'">
+<button class="btn-continue" id="btnContinue" onclick="window.location.href='page2.html'">
 go on?
 </button>
 
 <script>
 
+const audio=document.getElementById("introAudio");
+audio.play().catch(()=>{});
+
 setTimeout(()=>{
 document.getElementById("btnContinue").classList.add("visible");
-},42000);
+},16000);
 
 </script>
 
