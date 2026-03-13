@@ -10,14 +10,17 @@
 <link rel="icon" type="image/jpeg" href="icone.jpeg">
 <link rel="apple-touch-icon" href="icone.jpeg">
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:300,400,500&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 
-{
+*, *::before, ::after {
+box-sizing:border-box;
 margin:0;
 padding:0;
-box-sizing:border-box;
 }
 
 body{
@@ -28,7 +31,7 @@ color:#e8dcc8;
 font-family:'Cormorant Garamond',serif;
 }
 
-/ IMAGE DE FOND /
+/ FOND /
 
 .background{
 position:fixed;
@@ -37,6 +40,7 @@ background-image:url("fondecran.jpg");
 background-size:cover;
 background-position:center;
 z-index:0;
+filter:grayscale(40%) contrast(1.1);
 }
 
 / VOILE /
@@ -46,9 +50,9 @@ position:fixed;
 inset:0;
 background:linear-gradient(
 to bottom,
-rgba(0,0,0,0.7),
-rgba(0,0,0,0.45),
-rgba(0,0,0,0.8)
+rgba(0,0,0,0.75),
+rgba(0,0,0,0.55),
+rgba(0,0,0,0.80)
 );
 z-index:1;
 }
@@ -58,86 +62,97 @@ z-index:1;
 .scene{
 position:fixed;
 inset:0;
-display:flex;
-justify-content:center;
-perspective:400px;
-z-index:2;
+z-index:3;
+perspective:420px;
+perspective-origin:50% 100%;
 overflow:hidden;
-}
-
-/ BOARD /
-
-#board{
-position:absolute;
-bottom:0;
-width:100%;
-text-align:center;
-transform-origin:50% 100%;
-transform:rotateX(25deg);
-}
-
-/ TEXTE QUI MONTE /
-
-#content{
-position:absolute;
-top:100%;
-width:80%;
-left:10%;
-animation:scroll 60s linear forwards;
-}
-
-/ ANIMATION /
-
-@keyframes scroll{
-0%{
-top:100%;
-}
-100%{
-top:-170%;
-}
 }
 
 / TEXTE /
 
-#content p{
-font-size:clamp(1.8rem,2.6vw,3rem);
-line-height:2;
-margin-bottom:2.5rem;
-text-shadow:0 0 30px rgba(0,0,0,1);
+.crawl-wrapper{
+position:absolute;
+bottom:-260%;
+left:50%;
+width:95%;
+max-width:1200px;
+transform:translateX(-50%) rotateX(20deg);
+transform-origin:50% 100%;
+animation:crawl 60s linear forwards;
+padding-bottom:2vh;
 }
 
-#content p.italic{
+/ ANIMATION /
+
+@keyframes crawl{
+0%{
+bottom:-260%;
+opacity:1;
+}
+92%{
+opacity:1;
+}
+100%{
+bottom:230%;
+opacity:0;
+}
+}
+
+.crawl-wrapper p{
+text-align:center;
+font-size:2.8rem;
+font-weight:300;
+line-height:2;
+letter-spacing:0.04em;
+margin-bottom:2.6em;
+text-shadow:
+0 0 30px rgba(0,0,0,1),
+0 0 60px rgba(0,0,0,0.9),
+0 2px 4px rgba(0,0,0,0.9);
+color:#e8dcc8;
+}
+
+.crawl-wrapper p.italic{
 font-style:italic;
 }
 
-#content p.final{
+.crawl-wrapper p.final{
 font-family:'Cinzel',serif;
-font-size:clamp(2.2rem,5vw,3.4rem);
-letter-spacing:0.1em;
-color:white;
+font-size:3.4rem;
+font-weight:600;
+letter-spacing:0.12em;
+color:#fff;
+text-shadow:
+0 0 40px rgba(255,220,150,0.4),
+0 0 80px rgba(255,180,80,0.2),
+0 2px 4px rgba(0,0,0,1);
+margin-top:1em;
 }
 
 / BOUTON */
 
 .btn-continue{
 position:fixed;
-bottom:40px;
-right:50px;
-background:none;
-border:none;
-border-bottom:1px solid rgba(232,220,200,0.5);
-color:rgba(232,220,200,0.6);
-font-family:'Cinzel',serif;
-font-size:0.7rem;
-letter-spacing:0.25em;
-cursor:pointer;
-opacity:0;
-transition:opacity 1s ease;
+bottom:38px;
+right:52px;
 z-index:10;
+background:transparent;
+border:none;
+border-bottom:1px solid rgba(232,220,200,0.45);
+color:rgba(232,220,200,0.55);
+font-family:'Cinzel',serif;
+font-size:0.72rem;
+letter-spacing:0.22em;
+cursor:pointer;
+padding:4px 2px 6px;
+opacity:0;
+transition:opacity 1.2s ease;
+pointer-events:none;
 }
 
 .btn-continue.visible{
 opacity:1;
+pointer-events:auto;
 }
 
 </style>
@@ -154,9 +169,7 @@ opacity:1;
 
 <div class="scene">
 
-<div id="board">
-
-<div id="content">
+<div class="crawl-wrapper">
 
 <p class="italic">Longtemps avant que le monde ne s'allume…</p>
 
@@ -201,8 +214,6 @@ le cercle incandescent.
 
 </div>
 
-</div>
-
 <button class="btn-continue" id="btnContinue"
 onclick="window.location.href='page2.html'">
 go on?
@@ -210,9 +221,9 @@ go on?
 
 <script>
 
-setTimeout(function(){
+setTimeout(()=>{
 document.getElementById("btnContinue").classList.add("visible");
-},45000);
+},42000);
 
 </script>
 
