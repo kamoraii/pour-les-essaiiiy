@@ -10,172 +10,149 @@
 <link rel="icon" type="image/jpeg" href="icone.jpeg">
 <link rel="apple-touch-icon" href="icone.jpeg">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:300,400,500&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 
-,::before,::after{
-box-sizing:border-box;
+{
 margin:0;
 padding:0;
+box-sizing:border-box;
 }
 
 body{
+
 height:100vh;
 overflow:hidden;
 background:#000;
 color:#e8dcc8;
 font-family:'Cormorant Garamond',serif;
+
 }
 
-/ IMAGE DE FOND /
+/ IMAGE FOND /
 
 .background{
+
 position:fixed;
 inset:0;
+
 background-image:url("fondecran.jpg");
 background-size:cover;
 background-position:center;
+
 z-index:0;
-filter:grayscale(40%) contrast(1.1);
+
 }
 
-/ VOILE SOMBRE /
+/ VOILE /
 
 .overlay{
+
 position:fixed;
 inset:0;
+
 background:linear-gradient(
 to bottom,
-rgba(0,0,0,0.75),
-rgba(0,0,0,0.55),
-rgba(0,0,0,0.80)
+rgba(0,0,0,0.7),
+rgba(0,0,0,0.45),
+rgba(0,0,0,0.8)
 );
+
 z-index:1;
+
 }
 
-/ GRAIN CINÉMA /
-
-.grain{
-position:fixed;
-inset:0;
-z-index:2;
-pointer-events:none;
-opacity:0.04;
-background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-background-size:150px;
-}
-
-/ SCENE 3D /
+/ SCENE /
 
 .scene{
+
 position:fixed;
 inset:0;
-z-index:3;
-perspective:320px;
-perspective-origin:50% 100%;
-overflow:hidden;
+
+display:flex;
+justify-content:center;
+
+perspective:400px;
+
+z-index:2;
+
 }
 
-/ MASQUE HORIZON /
+/ BOARD STAR WARS /
 
-.scene::after{
-content:"";
-position:absolute;
-top:0;
-left:0;
-right:0;
-height:45%;
-background:linear-gradient(to bottom,rgba(0,0,0,1),rgba(0,0,0,0));
-pointer-events:none;
-}
-
-/ BLOC TEXTE /
-
-.crawl-wrapper{
+#board{
 
 position:absolute;
-bottom:-340%;
-left:50%;
+bottom:0;
 
-width:125%;
-max-width:1100px;
+width:100%;
 
-transform:translateX(-50%) rotateX(24deg);
+text-align:center;
+
 transform-origin:50% 100%;
+transform:rotateX(25deg);
 
-animation:none;
+}
+
+/ TEXTE QUI MONTE /
+
+#content{
+
+position:absolute;
+
+top:100%;
+
+width:80%;
+left:10%;
+
+animation:scroll 60s linear forwards;
 
 }
 
 / ANIMATION /
 
-@keyframes crawl{
+@keyframes scroll{
 
 0%{
-bottom:-340%;
-opacity:1;
-}
-
-92%{
-opacity:1;
+top:100%;
 }
 
 100%{
-bottom:240%;
-opacity:0;
+top:-170%;
 }
 
 }
 
 / TEXTE /
 
-.crawl-wrapper p{
+#content p{
 
-text-align:center;
-
-font-size:clamp(1.8rem,2.4vw,3rem);
+font-size:clamp(1.8rem,2.6vw,3rem);
 
 line-height:2;
 
-letter-spacing:0.04em;
+margin-bottom:2.5rem;
 
-margin-bottom:2.6em;
-
-text-shadow:
-0 0 30px rgba(0,0,0,1),
-0 0 60px rgba(0,0,0,0.9),
-0 2px 4px rgba(0,0,0,0.9);
-
-color:#e8dcc8;
+text-shadow:0 0 30px rgba(0,0,0,1);
 
 }
 
-.crawl-wrapper p.italic{
+#content p.italic{
+
 font-style:italic;
+
 }
 
-.crawl-wrapper p.final{
+#content p.final{
 
 font-family:'Cinzel',serif;
 
-font-size:clamp(2.4rem,6vw,3.4rem);
+font-size:clamp(2.2rem,5vw,3.4rem);
 
-font-weight:600;
+letter-spacing:0.1em;
 
-letter-spacing:0.12em;
-
-color:#fff;
-
-text-shadow:
-0 0 40px rgba(255,220,150,0.4),
-0 0 80px rgba(255,180,80,0.2),
-0 2px 4px rgba(0,0,0,1);
-
-margin-top:1em;
+color:white;
 
 }
 
@@ -184,39 +161,38 @@ margin-top:1em;
 .btn-continue{
 
 position:fixed;
-bottom:38px;
-right:52px;
 
-background:transparent;
+bottom:40px;
+right:50px;
+
+background:none;
 
 border:none;
-border-bottom:1px solid rgba(232,220,200,0.45);
 
-color:rgba(232,220,200,0.55);
+border-bottom:1px solid rgba(232,220,200,0.5);
+
+color:rgba(232,220,200,0.6);
 
 font-family:'Cinzel',serif;
 
-font-size:0.72rem;
+font-size:0.7rem;
 
-letter-spacing:0.22em;
+letter-spacing:0.25em;
 
 cursor:pointer;
 
-padding:4px 2px 6px;
-
 opacity:0;
 
-pointer-events:none;
-
-transition:opacity 1.2s ease;
+transition:opacity 1s ease;
 
 z-index:10;
 
 }
 
 .btn-continue.visible{
+
 opacity:1;
-pointer-events:auto;
+
 }
 
 </style>
@@ -226,7 +202,6 @@ pointer-events:auto;
 
 <div class="background"></div>
 <div class="overlay"></div>
-<div class="grain"></div>
 
 <audio autoplay playsinline>
 <source src="musique_intro.mp3" type="audio/mpeg">
@@ -234,7 +209,9 @@ pointer-events:auto;
 
 <div class="scene">
 
-<div class="crawl-wrapper">
+<div id="board">
+
+<div id="content">
 
 <p class="italic">Longtemps avant que le monde ne s'allume…</p>
 
@@ -279,9 +256,13 @@ le cercle incandescent.
 
 </div>
 
+</div>
+
 <button class="btn-continue" id="btnContinue"
 onclick="window.location.href='page2.html'">
+
 go on?
+
 </button>
 
 <script>
@@ -289,18 +270,20 @@ go on?
 window.addEventListener("load",function(){
 
 setTimeout(function(){
-document.querySelector(".crawl-wrapper")
-.style.animation="crawl 60s linear forwards";
-},900);
+
+document.getElementById("content").style.animation="scroll 60s linear forwards";
+
+},1000);
 
 setTimeout(function(){
-document.getElementById("btnContinue")
-.classList.add("visible");
-},44000);
+
+document.getElementById("btnContinue").classList.add("visible");
+
+},45000);
 
 });
 
 </script>
 
 </body>
-</html> 
+</html>
