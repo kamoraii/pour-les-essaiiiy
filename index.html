@@ -21,178 +21,123 @@ box-sizing:border-box;
 }
 
 body{
-
 height:100vh;
 overflow:hidden;
 background:#000;
 color:#e8dcc8;
 font-family:'Cormorant Garamond',serif;
-
 }
 
-/ IMAGE FOND /
+/ IMAGE DE FOND /
 
 .background{
-
 position:fixed;
 inset:0;
-
 background-image:url("fondecran.jpg");
 background-size:cover;
 background-position:center;
-
 z-index:0;
-
 }
 
 / VOILE /
 
 .overlay{
-
 position:fixed;
 inset:0;
-
 background:linear-gradient(
 to bottom,
 rgba(0,0,0,0.7),
 rgba(0,0,0,0.45),
 rgba(0,0,0,0.8)
 );
-
 z-index:1;
-
 }
 
 / SCENE /
 
 .scene{
-
 position:fixed;
 inset:0;
-
 display:flex;
 justify-content:center;
-
 perspective:400px;
-
 z-index:2;
-
+overflow:hidden;
 }
 
-/ BOARD STAR WARS /
+/ BOARD /
 
 #board{
-
 position:absolute;
 bottom:0;
-
 width:100%;
-
 text-align:center;
-
 transform-origin:50% 100%;
 transform:rotateX(25deg);
-
 }
 
 / TEXTE QUI MONTE /
 
 #content{
-
 position:absolute;
-
 top:100%;
-
 width:80%;
 left:10%;
-
 animation:scroll 60s linear forwards;
-
 }
 
 / ANIMATION /
 
 @keyframes scroll{
-
 0%{
 top:100%;
 }
-
 100%{
 top:-170%;
 }
-
 }
 
 / TEXTE /
 
 #content p{
-
 font-size:clamp(1.8rem,2.6vw,3rem);
-
 line-height:2;
-
 margin-bottom:2.5rem;
-
 text-shadow:0 0 30px rgba(0,0,0,1);
-
 }
 
 #content p.italic{
-
 font-style:italic;
-
 }
 
 #content p.final{
-
 font-family:'Cinzel',serif;
-
 font-size:clamp(2.2rem,5vw,3.4rem);
-
 letter-spacing:0.1em;
-
 color:white;
-
 }
 
 / BOUTON */
 
 .btn-continue{
-
 position:fixed;
-
 bottom:40px;
 right:50px;
-
 background:none;
-
 border:none;
-
 border-bottom:1px solid rgba(232,220,200,0.5);
-
 color:rgba(232,220,200,0.6);
-
 font-family:'Cinzel',serif;
-
 font-size:0.7rem;
-
 letter-spacing:0.25em;
-
 cursor:pointer;
-
 opacity:0;
-
 transition:opacity 1s ease;
-
 z-index:10;
-
 }
 
 .btn-continue.visible{
-
 opacity:1;
-
 }
 
 </style>
@@ -260,30 +205,16 @@ le cercle incandescent.
 
 <button class="btn-continue" id="btnContinue"
 onclick="window.location.href='page2.html'">
-
 go on?
-
 </button>
 
 <script>
 
-window.addEventListener("load",function(){
-
 setTimeout(function(){
-
-document.getElementById("content").style.animation="scroll 60s linear forwards";
-
-},1000);
-
-setTimeout(function(){
-
 document.getElementById("btnContinue").classList.add("visible");
-
 },45000);
-
-});
 
 </script>
 
 </body>
-</html> 
+</html>
