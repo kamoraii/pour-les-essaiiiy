@@ -1,9 +1,9 @@
-<!-- /index.html -->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Dans l'ombre</title>
 
 <link rel="icon" type="image/jpeg" href="icone.jpeg">
@@ -12,11 +12,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
 
-*{margin:0;padding:0;box-sizing:border-box}
+{margin:0;padding:0;box-sizing:border-box}
 
 body{
 height:100vh;
@@ -26,33 +26,31 @@ color:#e8dcc8;
 font-family:'Cormorant Garamond',serif;
 }
 
-/* background */
+/ BACKGROUND /
 
 .background{
 position:fixed;
 inset:0;
-background:url("fondecran.jpg");
+background-image:url("fondecran.jpg");
 background-size:cover;
 background-position:center;
-filter:grayscale(40%) contrast(1.1);
+filter:grayscale(40%) contrast(1.15);
 z-index:0;
 }
-
-/* dark overlay */
 
 .overlay{
 position:fixed;
 inset:0;
 background:linear-gradient(
 to bottom,
-rgba(0,0,0,0.8) 0%,
-rgba(0,0,0,0.5) 40%,
-rgba(0,0,0,0.85) 100%
+rgba(0,0,0,.85),
+rgba(0,0,0,.45),
+rgba(0,0,0,.85)
 );
 z-index:1;
 }
 
-/* film grain */
+/ FILM GRAIN /
 
 .grain{
 position:fixed;
@@ -64,18 +62,18 @@ background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='htt
 background-size:200px;
 }
 
-/* perspective scene */
+/ SCENE /
 
 .scene{
 position:fixed;
 inset:0;
-z-index:3;
-perspective:480px;
+perspective:180px;
 perspective-origin:50% 100%;
+z-index:3;
 overflow:hidden;
 }
 
-/* cinematic horizon fade */
+/ HORIZON /
 
 .scene::after{
 content:"";
@@ -83,44 +81,68 @@ position:absolute;
 top:0;
 left:0;
 right:0;
-height:45%;
-background:linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
+height:55%;
+background:linear-gradient(to bottom,rgba(0,0,0,1),rgba(0,0,0,0));
 pointer-events:none;
 }
 
-/* crawl wrapper */
+/ CRAWL /
 
 .crawl-wrapper{
+
 position:absolute;
-bottom:-280%;
+bottom:-420%;
 left:50%;
-width:80%;
-max-width:900px;
-transform:translateX(-50%) rotateX(21deg);
+
+width:140%;
+max-width:none;
+
+transform:translateX(-50%) rotateX(32deg);
 transform-origin:50% 100%;
-animation:crawl 65s linear forwards;
+
+animation:none;
+
 }
 
-/* crawl animation */
+/ ANIMATION /
 
 @keyframes crawl{
-0%{bottom:-280%;opacity:1}
-90%{opacity:1}
-100%{bottom:260%;opacity:0}
+
+0%{
+bottom:-420%;
+opacity:1;
 }
 
-/* text */
+92%{
+opacity:1;
+}
+
+100%{
+bottom:260%;
+opacity:0;
+}
+
+}
+
+/ TEXT /
 
 .crawl-wrapper p{
+
 text-align:center;
-font-size:clamp(1.8rem,2.5vw,3rem);
-line-height:2;
+
+font-size:clamp(1.9rem,2.6vw,3rem);
+
+line-height:2.05;
+
 letter-spacing:.04em;
-margin-bottom:2.6em;
+
+margin-bottom:2.7em;
+
 text-shadow:
 0 0 30px rgba(0,0,0,1),
 0 0 60px rgba(0,0,0,.9),
 0 2px 4px rgba(0,0,0,.9);
+
 }
 
 .crawl-wrapper p.italic{
@@ -128,36 +150,57 @@ font-style:italic;
 }
 
 .crawl-wrapper p.final{
+
 font-family:'Cinzel',serif;
-font-size:3.4rem;
-letter-spacing:.12em;
+
+font-size:clamp(2.2rem,6vw,3.5rem);
+
+letter-spacing:.14em;
+
 color:#fff;
+
 text-shadow:
 0 0 40px rgba(255,220,150,.5),
-0 0 90px rgba(255,180,80,.3),
+0 0 90px rgba(255,180,80,.35),
 0 2px 4px rgba(0,0,0,1);
+
 margin-top:1em;
+
 }
 
-/* continue button */
+/ BUTTON */
 
 .btn-continue{
+
 position:fixed;
 bottom:40px;
 right:50px;
+
 background:transparent;
+
 border:none;
 border-bottom:1px solid rgba(232,220,200,.45);
-color:rgba(232,220,200,.55);
+
+color:rgba(232,220,200,.6);
+
 font-family:'Cinzel',serif;
+
 font-size:.72rem;
+
 letter-spacing:.22em;
+
 cursor:pointer;
+
 padding:4px 2px 6px;
+
 opacity:0;
+
 pointer-events:none;
+
 transition:opacity 1.2s ease,color .4s ease,border-color .4s ease;
+
 z-index:10;
+
 }
 
 .btn-continue.visible{
@@ -184,6 +227,7 @@ border-bottom-color:rgba(232,220,200,.8);
 </audio>
 
 <div class="scene">
+
 <div class="crawl-wrapper">
 
 <p class="italic">Longtemps avant que le monde ne s'allume…</p>
@@ -226,6 +270,7 @@ le cercle incandescent.
 <p class="final">Et le monde s'embrase.</p>
 
 </div>
+
 </div>
 
 <button class="btn-continue" id="btnContinue"
@@ -235,9 +280,19 @@ go on?
 
 <script>
 
+window.addEventListener("load", () => {
+
 setTimeout(()=>{
-document.getElementById("btnContinue").classList.add("visible")
-},18000)
+document.querySelector(".crawl-wrapper")
+.style.animation="crawl 70s linear forwards";
+},1000);
+
+setTimeout(()=>{
+document.getElementById("btnContinue")
+.classList.add("visible");
+},52000);
+
+});
 
 </script>
 
