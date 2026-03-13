@@ -1,3 +1,4 @@
+831"}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -73,7 +74,7 @@ background-size:150px;
 position:fixed;
 inset:0;
 z-index:3;
-perspective:420px;
+perspective:300px;
 perspective-origin:50% 100%;
 overflow:hidden;
 }
@@ -82,13 +83,21 @@ overflow:hidden;
 
 .crawl-wrapper{
 position:absolute;
-bottom:-120%;
+
+/ TEXTE COMMENCE HORS ÉCRAN /
+bottom:-220%;
+
 left:50%;
-width:95%;
-max-width:1200px;
-transform:translateX(-50%) rotateX(22deg);
+
+/ TEXTE PLUS LARGE /
+width:120%;
+max-width:none;
+
+transform:translateX(-50%) rotateX(28deg);
 transform-origin:50% 100%;
+
 animation:none;
+
 padding-bottom:2vh;
 }
 
@@ -97,7 +106,7 @@ padding-bottom:2vh;
 @keyframes crawl{
 
 0%{
-bottom:-120%;
+bottom:-220%;
 opacity:1;
 }
 
@@ -113,16 +122,24 @@ opacity:0;
 }
 
 .crawl-wrapper p{
+
 text-align:center;
+
 font-size:clamp(2rem,3vw,3rem);
+
 font-weight:300;
+
 line-height:2;
+
 letter-spacing:0.04em;
+
 margin-bottom:2.6em;
+
 text-shadow:
 0 0 30px rgba(0,0,0,1),
 0 0 60px rgba(0,0,0,0.9),
 0 2px 4px rgba(0,0,0,0.9);
+
 color:#e8dcc8;
 }
 
@@ -131,19 +148,26 @@ font-style:italic;
 }
 
 .crawl-wrapper p.final{
+
 font-family:'Cinzel',serif;
-font-size:clamp(2.8rem,4vw,3.6rem);
+
+font-size:clamp(3rem,4vw,3.6rem);
+
 font-weight:600;
+
 letter-spacing:0.12em;
+
 color:#fff;
+
 text-shadow:
 0 0 40px rgba(255,220,150,0.4),
 0 0 80px rgba(255,180,80,0.2),
 0 2px 4px rgba(0,0,0,1);
+
 margin-top:1em;
 }
 
-/ BOUTON */
+/ BOUTON /
 
 .btn-continue{
 position:fixed;
@@ -167,11 +191,6 @@ pointer-events:none;
 .btn-continue.visible{
 opacity:1;
 pointer-events:auto;
-}
-
-.btn-continue:hover{
-color:rgba(232,220,200,0.95);
-border-bottom-color:rgba(232,220,200,0.8);
 }
 
 </style>
@@ -240,15 +259,19 @@ go on?
 
 const crawl=document.querySelector('.crawl-wrapper');
 
+/ petit temps d'écran d'accueil /
+
 setTimeout(()=>{
-crawl.style.animation="crawl 55s linear forwards";
-},2000);
+crawl.style.animation="crawl 60s linear forwards";
+},1200);
+
+/ bouton quand la dernière phrase arrive */
 
 setTimeout(()=>{
 document.getElementById('btnContinue').classList.add('visible');
-},42000);
+},45000);
 
 </script>
 
 </body>
-</html>
+</
