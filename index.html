@@ -1,277 +1,245 @@
-831"}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dans l'ombre</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dans l'ombre — générique</title>
+  <link rel="icon" type="image/jpeg" href="icone.jpeg">
+  <link rel="apple-touch-icon" href="icone.jpeg">
+  <!-- Police Pathway Gothic One (celle du code que vous avez partagé) + élégance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pathway+Gothic+One&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-<link rel="icon" type="image/jpeg" href="icone.jpeg">
-<link rel="apple-touch-icon" href="icone.jpeg">
+    body {
+      height: 100vh;
+      overflow: hidden;
+      background: #000;
+      color: #feda4a; /* La couleur jaune Star Wars */
+      font-family: 'Pathway Gothic One', sans-serif;
+    }
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    .background {
+      position: fixed;
+      inset: 0;
+      background-image: url("fondecran.jpg");
+      background-size: cover;
+      background-position: center;
+      z-index: 0;
+      filter: grayscale(40%) contrast(1.1) brightness(0.9);
+    }
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 50% 30%, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.85) 100%);
+      z-index: 1;
+    }
 
-<style>
+    .grain {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      opacity: 0.06;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 180px;
+    }
 
-,::before,::after{
-box-sizing:border-box;
-margin:0;
-padding:0;
-}
+    /* Conteneur avec perspective - inspiré de votre code */
+    .scene {
+      position: fixed;
+      inset: 0;
+      z-index: 3;
+      perspective: 300px;           /* perspective plus forte pour l'effet */
+      perspective-origin: 50% 80%;
+      overflow: hidden;
+    }
 
-body{
-height:100vh;
-overflow:hidden;
-background:#000;
-color:#e8dcc8;
-font-family:'Cormorant Garamond',serif;
-}
+    .crawl-wrapper {
+      position: absolute;
+      top: 100%;                    /* démarre hors champ par le bas */
+      left: 50%;
+      width: 100%;
+      max-width: none;
+      transform: translateX(-50%) rotateX(15deg); /* angle Star Wars typique */
+      transform-origin: 50% 100%;
+      animation: crawl 45s linear forwards;  /* 45 secondes exactement */
+      will-change: transform, opacity;
+      text-align: center;
+      line-height: 1.3;
+    }
 
-/ FOND /
+    /* Animation simplifiée mais efficace */
+    @keyframes crawl {
+      0% {
+        top: 100%;
+        opacity: 1;
+        transform: translateX(-50%) rotateX(15deg) translateZ(0);
+      }
+      20% {
+        opacity: 1;
+      }
+      100% {
+        top: -800%;                 /* sortie par le haut */
+        opacity: 0;
+        transform: translateX(-50%) rotateX(20deg) translateZ(-300px); /* léger effet de profondeur */
+      }
+    }
 
-.background{
-position:fixed;
-inset:0;
-background-image:url("fondecran.jpg");
-background-size:cover;
-background-position:center;
-z-index:0;
-filter:grayscale(40%) contrast(1.1);
-}
+    /* Style du texte : massif, large, jaune Star Wars */
+    .crawl-wrapper p {
+      font-size: clamp(10rem, 22vw, 40rem);   /* énorme */
+      font-weight: 400;
+      line-height: 1.2;
+      letter-spacing: 0.1em;                   /* espacement large */
+      margin-bottom: 0.5em;
+      color: #feda4a;                           /* jaune emblématique */
+      text-shadow:
+        0 0 50px rgba(255, 220, 100, 0.7),
+        0 0 100px rgba(0, 0, 0, 0.9),
+        0 10px 20px #000;
+      white-space: pre-wrap;
+      word-break: break-word;
+      width: 100%;
+      text-transform: uppercase;                /* tout en majuscules comme Star Wars */
+    }
 
-/ VOILE /
+    /* Dernière phrase encore plus massive, avec la police Cinzel pour le contraste */
+    .crawl-wrapper p.final {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(16rem, 32vw, 60rem);
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      color: #fff7e6;
+      text-shadow:
+        0 0 100px rgba(255, 220, 100, 0.9),
+        0 0 200px rgba(255, 180, 60, 0.7),
+        0 20px 40px #000;
+      margin-top: 0.3em;
+    }
 
-.overlay{
-position:fixed;
-inset:0;
-background:linear-gradient(
-to bottom,
-rgba(0,0,0,0.75) 0%,
-rgba(0,0,0,0.55) 40%,
-rgba(0,0,0,0.80) 100%
-);
-z-index:1;
-}
+    /* Bouton discret "go on?" */
+    .btn-continue {
+      position: fixed;
+      bottom: 32px;
+      right: 42px;
+      z-index: 20;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(254, 218, 74, 0.4);
+      color: rgba(254, 218, 74, 0.6);
+      font-family: 'Cinzel', serif;
+      font-size: 1.2rem;
+      letter-spacing: 0.3em;
+      text-transform: lowercase;
+      cursor: pointer;
+      padding: 6px 4px 8px;
+      opacity: 0;
+      transition: opacity 1.8s ease, color 0.3s, border-color 0.3s;
+      pointer-events: none;
+      backdrop-filter: blur(2px);
+    }
 
-/ GRAIN /
+    .btn-continue.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
 
-.grain{
-position:fixed;
-inset:0;
-z-index:2;
-pointer-events:none;
-opacity:0.04;
-background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-background-size:150px;
-}
+    .btn-continue:hover {
+      color: #feda4a;
+      border-bottom-color: rgba(254, 218, 74, 0.9);
+    }
 
-/ SCENE /
-
-.scene{
-position:fixed;
-inset:0;
-z-index:3;
-perspective:300px;
-perspective-origin:50% 100%;
-overflow:hidden;
-}
-
-/ TEXTE /
-
-.crawl-wrapper{
-position:absolute;
-
-/ TEXTE COMMENCE HORS ÉCRAN /
-bottom:-220%;
-
-left:50%;
-
-/ TEXTE PLUS LARGE /
-width:120%;
-max-width:none;
-
-transform:translateX(-50%) rotateX(28deg);
-transform-origin:50% 100%;
-
-animation:none;
-
-padding-bottom:2vh;
-}
-
-/ ANIMATION /
-
-@keyframes crawl{
-
-0%{
-bottom:-220%;
-opacity:1;
-}
-
-92%{
-opacity:1;
-}
-
-100%{
-bottom:230%;
-opacity:0;
-}
-
-}
-
-.crawl-wrapper p{
-
-text-align:center;
-
-font-size:clamp(2rem,3vw,3rem);
-
-font-weight:300;
-
-line-height:2;
-
-letter-spacing:0.04em;
-
-margin-bottom:2.6em;
-
-text-shadow:
-0 0 30px rgba(0,0,0,1),
-0 0 60px rgba(0,0,0,0.9),
-0 2px 4px rgba(0,0,0,0.9);
-
-color:#e8dcc8;
-}
-
-.crawl-wrapper p.italic{
-font-style:italic;
-}
-
-.crawl-wrapper p.final{
-
-font-family:'Cinzel',serif;
-
-font-size:clamp(3rem,4vw,3.6rem);
-
-font-weight:600;
-
-letter-spacing:0.12em;
-
-color:#fff;
-
-text-shadow:
-0 0 40px rgba(255,220,150,0.4),
-0 0 80px rgba(255,180,80,0.2),
-0 2px 4px rgba(0,0,0,1);
-
-margin-top:1em;
-}
-
-/ BOUTON /
-
-.btn-continue{
-position:fixed;
-bottom:38px;
-right:52px;
-z-index:10;
-background:transparent;
-border:none;
-border-bottom:1px solid rgba(232,220,200,0.45);
-color:rgba(232,220,200,0.55);
-font-family:'Cinzel',serif;
-font-size:0.72rem;
-letter-spacing:0.22em;
-cursor:pointer;
-padding:4px 2px 6px;
-opacity:0;
-transition:opacity 1.2s ease;
-pointer-events:none;
-}
-
-.btn-continue.visible{
-opacity:1;
-pointer-events:auto;
-}
-
-</style>
+    audio {
+      position: absolute;
+      width: 0;
+      height: 0;
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
 </head>
-
 <body>
+  <div class="background"></div>
+  <div class="overlay"></div>
+  <div class="grain"></div>
 
-<div class="background"></div>
-<div class="overlay"></div>
-<div class="grain"></div>
+  <!-- Audio avec gestion robuste -->
+  <audio autoplay loop playsinline id="introAudio">
+    <source src="musique_intro.mp3" type="audio/mpeg">
+  </audio>
 
-<audio autoplay>
-<source src="musique_intro.mp3" type="audio/mpeg">
-</audio>
+  <div class="scene">
+    <div class="crawl-wrapper">
+      <!-- Texte en majuscules comme dans Star Wars -->
+      <p>LONGTEMPS AVANT QUE LE MONDE<br>NE S'ALLUME…</p>
+      <p>NOUS ÉTIONS DÉJÀ LÀ.</p>
+      <p>
+        LES MAINS DANS LE FROID,<br>
+        LES GENOUX DANS LA POUSSIÈRE,<br>
+        PORTANT UN UNIVERS ENTIER<br>
+        QUI N'AVAIT PAS LE DROIT DE VACILLER.
+      </p>
+      <p>
+        NOUS COMBATTIONS SANS RELÂCHE LA CHUTE.<br>
+        EN SILENCE.
+      </p>
+      <p>
+        LAISSANT UN PEU DE NOUS DANS CHAQUE RECOIN,<br>
+        POUR QUE LE RÊVE TIENNE DEBOUT.
+      </p>
+      <p>
+        CEUX QUI TOMBENT ENSEMBLE<br>
+        NE TOMBENT JAMAIS SEULS.
+      </p>
+      <p>FIERS D'UN ORGUEIL QUE RIEN N'EFFACE.</p>
+      <p>
+        ET PUIS LA RUMEUR COMMENÇA À GRONDER —<br>
+        JUSQU'À CE QUE L'ARTISTE FRANCHISSE<br>
+        LE CERCLE INCANDESCENT.
+      </p>
+      <p class="final">ET LE MONDE S'EMBRASE</p>
+    </div>
+  </div>
 
-<div class="scene">
-<div class="crawl-wrapper">
+  <button class="btn-continue" id="btnContinue" onclick="window.location.href='page2.html'">
+    go on?
+  </button>
 
-<p class="italic">Longtemps avant que le monde ne s'allume…</p>
-
-<p>nous étions déjà là.</p>
-
-<p>
-Les mains dans le froid,<br>
-les genoux dans la poussière,<br>
-portant un univers entier<br>
-qui n'avait pas le droit de vaciller.
-</p>
-
-<p>
-Nous combattions sans relâche la chute.<br>
-En silence.
-</p>
-
-<p>
-Laissant un peu de nous dans chaque recoin<br>
-pour que le rêve tienne debout.
-</p>
-
-<p>
-Ceux qui tombent ensemble<br>
-ne tombent jamais seuls.
-</p>
-
-<p class="italic">
-Fiers d'un orgueil<br>
-que rien n'efface.
-</p>
-
-<p>
-Et puis la rumeur commença à gronder —<br>
-jusqu'à ce que l'artiste franchisse<br>
-le cercle incandescent.
-</p>
-
-<p class="final">Et le monde s'embrase.</p>
-
-</div>
-</div>
-
-<button class="btn-continue" id="btnContinue" onclick="window.location.href='page2.html'">
-go on?
-</button>
-
-<script>
-
-const crawl=document.querySelector('.crawl-wrapper');
-
-/ petit temps d'écran d'accueil /
-
-setTimeout(()=>{
-crawl.style.animation="crawl 60s linear forwards";
-},1200);
-
-/ bouton quand la dernière phrase arrive */
-
-setTimeout(()=>{
-document.getElementById('btnContinue').classList.add('visible');
-},45000);
-
-</script>
-
+  <script>
+    (function() {
+      const audio = document.getElementById('introAudio');
+      const btn = document.getElementById('btnContinue');
+      
+      // Gestion de l'autoplay avec fallback
+      let playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          console.log('Autoplay bloqué, attente interaction');
+          const startAudio = () => {
+            audio.play().catch(e => console.log('Échec lecture audio'));
+            document.removeEventListener('click', startAudio);
+            document.removeEventListener('touchstart', startAudio);
+            document.removeEventListener('keydown', startAudio);
+          };
+          document.addEventListener('click', startAudio, { once: true });
+          document.addEventListener('touchstart', startAudio, { once: true });
+          document.addEventListener('keydown', startAudio, { once: true });
+        });
+      }
+      
+      // Bouton apparaît après 40 secondes (juste avant la fin)
+      setTimeout(() => {
+        btn.classList.add('visible');
+      }, 40000);
+    })();
+  </script>
 </body>
-</
+</html>
