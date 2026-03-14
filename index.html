@@ -3,126 +3,189 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Star Wars Crawl</title>
+  <title>Dans l'ombre — seuil</title>
   <link rel="icon" type="image/jpeg" href="icone.jpeg">
   <link rel="apple-touch-icon" href="icone.jpeg">
+  <!-- Police élégante mais lisible -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
-    body {
+    * {
       margin: 0;
       padding: 0;
-      height: 100vh;
-      overflow: hidden;
-      background-color: black;
-      font-family: Arial, Helvetica, sans-serif; /* police simple pour commencer */
+      box-sizing: border-box;
     }
 
-    /* Image de fond */
+    body {
+      height: 100vh;
+      overflow: hidden;
+      background: #000;
+    }
+
+    /* Fond d'écran toujours visible */
     .background {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      inset: 0;
       background-image: url("fondecran.jpg");
       background-size: cover;
       background-position: center;
-      filter: brightness(0.5);
       z-index: 0;
+      filter: grayscale(30%) contrast(1.1) brightness(0.9);
     }
 
-    /* Voile sombre */
+    /* Voile sombre pour la lisibilité */
     .overlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6);
+      inset: 0;
+      background: radial-gradient(circle at 50% 30%, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.8) 100%);
       z-index: 1;
     }
 
-    /* Conteneur 3D */
-    .scene {
+    /* Grain subtil */
+    .grain {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      opacity: 0.05;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 150px;
+    }
+
+    /* La porte lumineuse (invitation) */
+    .door {
       position: fixed;
       top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      perspective: 200px; /* perspective plus faible pour un effet plus plat */
-      perspective-origin: 50% 70%;
-      overflow: hidden;
-      z-index: 2;
-    }
-
-    /* Le texte qui défile */
-    .crawl {
-      position: absolute;
-      top: 100%; /* commence juste en dessous de l'écran */
       left: 50%;
-      width: 90%;
-      transform: translateX(-50%) rotateX(10deg); /* angle très plat */
-      color: #FFD700; /* or */
-      font-size: 6vw; /* taille proportionnelle à l'écran */
-      font-weight: bold;
-      text-align: center;
-      line-height: 1.5;
-      letter-spacing: 0.2em;
-      text-shadow: 0 0 20px #FFD700, 0 0 40px rgba(255, 215, 0, 0.5);
-      animation: crawl 45s linear forwards;
+      width: 2px;                     /* fine ligne verticale */
+      height: 100%;
+      transform: translateX(-50%);
+      background: rgba(255, 240, 200, 0.7);  /* blanc doux légèrement doré */
+      box-shadow: 0 0 25px rgba(255, 240, 200, 0.8), 0 0 50px rgba(255, 220, 160, 0.5);
+      z-index: 10;
+      cursor: pointer;
+      transition: width 0.6s ease-out, opacity 0.4s ease; /* animation d'ouverture */
+      pointer-events: auto;
     }
 
-    /* Animation */
+    /* La porte s'élargit au toucher, puis disparaît */
+    .door.opening {
+      width: 100vw;                   /* s'ouvre sur tout l'écran */
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Conteneur 3D pour le crawl (caché au départ) */
+    .scene {
+      position: fixed;
+      inset: 0;
+      z-index: 5;
+      perspective: 500px;
+      perspective-origin: 50% 80%;
+      overflow: hidden;
+      opacity: 0;                     /* invisible tant que la porte n'est pas touchée */
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .scene.active {
+      opacity: 1;
+    }
+
+    /* Le texte qui défile (Star Wars crawl) */
+    .crawl-wrapper {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      width: 95%;
+      max-width: 1400px;
+      transform: translateX(-50%) rotateX(8deg);  /* angle plus plat (8°) */
+      transform-origin: 50% 100%;
+      animation: crawl 45s linear forwards;
+      will-change: transform, opacity;
+      text-align: center;
+      line-height: 1.4;
+    }
+
     @keyframes crawl {
       0% {
         top: 100%;
         opacity: 1;
       }
+      15% {
+        opacity: 1;
+      }
+      95% {
+        opacity: 1;
+      }
       100% {
-        top: -300%; /* sort par le haut */
+        top: -750%;                   /* sortie par le haut */
         opacity: 0;
       }
     }
 
-    /* Paragraphes */
-    .crawl p {
-      margin-bottom: 1em;
+    /* Style du texte : blanc doux, légèrement lumineux */
+    .crawl-wrapper p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(6rem, 14vw, 24rem);   /* grand mais pas démesuré */
+      font-weight: 300;
+      line-height: 1.3;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.8em;
+      color: rgba(255, 245, 230, 0.95);      /* blanc crème très doux */
+      text-shadow:
+        0 0 40px rgba(255, 230, 200, 0.5),
+        0 0 80px rgba(0, 0, 0, 0.8),
+        0 8px 15px #000;
+      white-space: pre-wrap;
+      word-break: break-word;
+      width: 100%;
     }
 
-    /* Dernière phrase plus grosse */
-    .crawl .final {
-      font-size: 8vw;
-      margin-top: 2em;
+    /* Dernière phrase plus imposante, même couleur douce */
+    .crawl-wrapper p.final {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: clamp(8rem, 18vw, 32rem);
+      letter-spacing: 0.1em;
+      color: rgba(255, 250, 240, 1);
+      text-shadow:
+        0 0 60px rgba(255, 240, 210, 0.7),
+        0 0 120px rgba(0, 0, 0, 0.9),
+        0 12px 25px #000;
     }
 
-    /* Bouton go on */
-    .btn {
+    /* Bouton go on (discret) */
+    .btn-continue {
       position: fixed;
-      bottom: 30px;
-      right: 30px;
-      z-index: 10;
+      bottom: 32px;
+      right: 42px;
+      z-index: 20;
       background: transparent;
       border: none;
-      border-bottom: 1px solid rgba(255, 215, 0, 0.3);
-      color: rgba(255, 215, 0, 0.5);
-      font-family: Arial, sans-serif;
+      border-bottom: 1px solid rgba(230, 220, 200, 0.35);
+      color: rgba(230, 220, 200, 0.5);
+      font-family: 'Cormorant Garamond', serif;
       font-size: 1rem;
       letter-spacing: 0.3em;
       text-transform: lowercase;
       cursor: pointer;
-      padding: 5px;
+      padding: 6px 4px 8px;
       opacity: 0;
-      transition: opacity 1s;
+      transition: opacity 1.8s ease, color 0.3s, border-color 0.3s;
       pointer-events: none;
+      backdrop-filter: blur(2px);
     }
 
-    .btn.visible {
+    .btn-continue.visible {
       opacity: 1;
       pointer-events: auto;
     }
 
-    .btn:hover {
-      color: gold;
-      border-bottom-color: gold;
+    .btn-continue:hover {
+      color: #fff0e0;
+      border-bottom-color: rgba(255, 240, 220, 0.8);
     }
 
     audio {
@@ -133,13 +196,19 @@
 <body>
   <div class="background"></div>
   <div class="overlay"></div>
+  <div class="grain"></div>
 
-  <audio autoplay loop>
+  <!-- La porte lumineuse (invitation poétique) -->
+  <div class="door" id="door"></div>
+
+  <!-- Audio (préchargé, sera lancé au toucher) -->
+  <audio id="introAudio" loop preload="auto">
     <source src="musique_intro.mp3" type="audio/mpeg">
   </audio>
 
-  <div class="scene">
-    <div class="crawl">
+  <!-- Scène avec le crawl (initialement cachée) -->
+  <div class="scene" id="scene">
+    <div class="crawl-wrapper">
       <p>Longtemps avant que le monde<br>ne s'allume…</p>
       <p>nous étions déjà là.</p>
       <p>Les mains dans le froid,<br>les genoux dans la poussière,<br>portant un univers entier<br>qui n'avait pas le droit de vaciller.</p>
@@ -152,26 +221,65 @@
     </div>
   </div>
 
-  <button class="btn" id="continueBtn" onclick="window.location.href='page2.html'">go on?</button>
+  <button class="btn-continue" id="btnContinue" onclick="window.location.href='page2.html'">go on?</button>
 
   <script>
-    // Bouton apparaît après 40 secondes
-    setTimeout(() => {
-      document.getElementById('continueBtn').classList.add('visible');
-    }, 40000);
+    (function() {
+      const door = document.getElementById('door');
+      const scene = document.getElementById('scene');
+      const audio = document.getElementById('introAudio');
+      const btn = document.getElementById('btnContinue');
+      
+      let fadeOutTimer = null;
+      let crawlStarted = false;
 
-    // Gestion audio
-    const audio = document.querySelector('audio');
-    audio.volume = 0.5;
-    
-    // Fallback si autoplay bloqué
-    audio.play().catch(() => {
-      const playAudio = () => {
-        audio.play();
-        document.removeEventListener('click', playAudio);
-      };
-      document.addEventListener('click', playAudio);
-    });
+      // Fonction pour démarrer le crawl et l'audio
+      function startExperience() {
+        if (crawlStarted) return;
+        crawlStarted = true;
+
+        // Ouvrir la porte (animation)
+        door.classList.add('opening');
+
+        // Activer la scène (rendre le crawl visible)
+        scene.classList.add('active');
+
+        // Lancer l'audio (contournement iPhone)
+        audio.play().catch(e => console.log('Audio error:', e));
+
+        // Programmer le fade out de l'audio sur les 6 dernières secondes (39s à 45s)
+        setTimeout(() => {
+          const fadeOutDuration = 6000; // 6 secondes
+          const stepTime = 100; // ms
+          const steps = fadeOutDuration / stepTime;
+          let currentStep = 0;
+          
+          const fadeInterval = setInterval(() => {
+            currentStep++;
+            const volume = Math.max(0, 1 - (currentStep / steps));
+            audio.volume = volume;
+            
+            if (currentStep >= steps) {
+              clearInterval(fadeInterval);
+              audio.pause(); // optionnel : stopper complètement
+            }
+          }, stepTime);
+        }, 39000); // 39 secondes après le début du crawl
+
+        // Bouton apparaît après 40 secondes (juste avant la fin)
+        setTimeout(() => {
+          btn.classList.add('visible');
+        }, 40000);
+      }
+
+      // Déclencher l'expérience au toucher de la porte
+      door.addEventListener('click', startExperience);
+      door.addEventListener('touchstart', startExperience);
+
+      // Si jamais l'utilisateur touche ailleurs que la porte, on peut aussi démarrer ?
+      // (optionnel, mais pour garder l'effet porte, on laisse uniquement la porte)
+      
+    })();
   </script>
 </body>
 </html>
