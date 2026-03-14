@@ -23,7 +23,6 @@
       background: #000;
     }
 
-    /* Fond d'écran */
     .background {
       position: fixed;
       inset: 0;
@@ -34,7 +33,6 @@
       filter: grayscale(30%) contrast(1.1) brightness(0.9);
     }
 
-    /* Voile sombre */
     .overlay {
       position: fixed;
       inset: 0;
@@ -42,7 +40,6 @@
       z-index: 1;
     }
 
-    /* Grain subtil */
     .grain {
       position: fixed;
       inset: 0;
@@ -53,7 +50,7 @@
       background-size: 150px;
     }
 
-    /* Invitation "my world" sur le côté */
+    /* Invitation "my world" */
     .invitation {
       position: fixed;
       bottom: 40px;
@@ -91,13 +88,13 @@
       100% { opacity: 0.4; }
     }
 
-    /* Scène du crawl (cachée au départ) */
+    /* Scène du crawl */
     .scene {
       position: fixed;
       inset: 0;
       z-index: 5;
-      perspective: 600px;
-      perspective-origin: 50% 70%;
+      perspective: 400px;  /* perspective plus forte pour accentuer l'angle */
+      perspective-origin: 50% 80%;
       overflow: hidden;
       opacity: 0;
       transition: opacity 0.3s ease;
@@ -108,20 +105,19 @@
       opacity: 1;
     }
 
-    /* Le texte qui défile - angle plat et largeur maximale */
+    /* Le texte qui défile - ANGLE STAR WARS PRONONCÉ */
     .crawl-wrapper {
       position: absolute;
       top: 100%;
       left: 50%;
-      width: 100%;  /* pleine largeur */
-      max-width: none;  /* pas de limite */
-      transform: translateX(-50%) rotateX(5deg);  /* angle très plat */
+      width: 92%;  /* largeur confortable */
+      max-width: 1400px;
+      transform: translateX(-50%) rotateX(18deg);  /* angle STAR WARS (18°) */
       transform-origin: 50% 100%;
       animation: crawl 48s linear forwards;
       will-change: transform, opacity;
       text-align: center;
-      line-height: 1.5;
-      padding: 0 20px;  /* petite marge pour éviter les bords */
+      line-height: 1.6;
     }
 
     @keyframes crawl {
@@ -141,45 +137,38 @@
       }
     }
 
-    /* Style du texte - taille ajustée pour que les phrases tiennent sur une ligne */
+    /* Style du texte - taille équilibrée */
     .crawl-wrapper p {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(5rem, 12vw, 18rem);  /* taille contrôlée */
+      font-size: clamp(5.5rem, 13vw, 22rem);  /* taille équilibrée */
       font-weight: 300;
-      line-height: 1.3;
-      letter-spacing: 0.02em;  /* réduit pour que les mots tiennent */
+      line-height: 1.4;
+      letter-spacing: 0.02em;
       margin-bottom: 0.7em;
       color: rgba(255, 245, 230, 0.95);
       text-shadow:
         0 0 40px rgba(255, 230, 200, 0.5),
         0 0 80px rgba(0, 0, 0, 0.8),
         0 8px 15px #000;
-      white-space: nowrap;  /* empêche la coupure des lignes courtes */
-      overflow: visible;
+      white-space: normal;  /* retour à la ligne naturel */
       width: 100%;
     }
 
-    /* Pour les phrases longues qui doivent passer à la ligne */
-    .crawl-wrapper p.long {
-      white-space: normal;
-    }
-
-    /* La dernière phrase encore plus grande */
+    /* Dernière phrase */
     .crawl-wrapper p.final {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 600;
-      font-size: clamp(7rem, 16vw, 24rem);
-      letter-spacing: 0.08em;
+      font-size: clamp(7rem, 16vw, 28rem);
+      letter-spacing: 0.1em;
       color: rgba(255, 250, 240, 1);
       text-shadow:
         0 0 70px rgba(255, 240, 210, 0.7),
         0 0 140px rgba(0, 0, 0, 0.9),
         0 15px 30px #000;
       margin-top: 0.8em;
-      white-space: nowrap;
     }
 
-    /* Bouton go on (discret) */
+    /* Bouton go on */
     .btn-continue {
       position: fixed;
       bottom: 32px;
@@ -221,7 +210,7 @@
   <div class="overlay"></div>
   <div class="grain"></div>
 
-  <!-- Invitation "my world" sur le côté -->
+  <!-- Invitation "my world" -->
   <button class="invitation" id="invitation">my world</button>
 
   <!-- Audio -->
@@ -236,7 +225,7 @@
       <p>nous étions déjà là.</p>
       <p>Les mains dans le froid,</p>
       <p>les genoux dans la poussière,</p>
-      <p class="long">portant un univers entier qui n'avait pas le droit de vaciller.</p>
+      <p>portant un univers entier qui n'avait pas le droit de vaciller.</p>
       <p>Nous combattions sans relâche la chute.</p>
       <p>En silence.</p>
       <p>Laissant un peu de nous dans chaque recoin,</p>
@@ -266,17 +255,13 @@
         if (experienceStarted) return;
         experienceStarted = true;
 
-        // Faire disparaître complètement l'invitation
         invitation.classList.add('hidden');
-
-        // Activer le crawl
         scene.classList.add('active');
 
-        // Lancer l'audio
         audio.play().catch(e => console.log('Audio error:', e));
         audio.volume = 1;
 
-        // Fade out sur 8 secondes (de 40s à 48s)
+        // Fade out sur 8 secondes (40s à 48s)
         setTimeout(() => {
           const fadeStartTime = Date.now();
           const fadeDuration = 8000;
