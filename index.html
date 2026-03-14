@@ -3,243 +3,175 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dans l'ombre — générique</title>
+  <title>Star Wars Crawl</title>
   <link rel="icon" type="image/jpeg" href="icone.jpeg">
   <link rel="apple-touch-icon" href="icone.jpeg">
-  <!-- Police Pathway Gothic One (celle du code que vous avez partagé) + élégance -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Pathway+Gothic+One&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    * {
+    body {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
       height: 100vh;
       overflow: hidden;
-      background: #000;
-      color: #feda4a; /* La couleur jaune Star Wars */
-      font-family: 'Pathway Gothic One', sans-serif;
+      background-color: black;
+      font-family: Arial, Helvetica, sans-serif; /* police simple pour commencer */
     }
 
+    /* Image de fond */
     .background {
       position: fixed;
-      inset: 0;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background-image: url("fondecran.jpg");
       background-size: cover;
       background-position: center;
+      filter: brightness(0.5);
       z-index: 0;
-      filter: grayscale(40%) contrast(1.1) brightness(0.9);
     }
 
+    /* Voile sombre */
     .overlay {
       position: fixed;
-      inset: 0;
-      background: radial-gradient(circle at 50% 30%, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.85) 100%);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
       z-index: 1;
     }
 
-    .grain {
-      position: fixed;
-      inset: 0;
-      z-index: 2;
-      pointer-events: none;
-      opacity: 0.06;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-      background-size: 180px;
-    }
-
-    /* Conteneur avec perspective - inspiré de votre code */
+    /* Conteneur 3D */
     .scene {
       position: fixed;
-      inset: 0;
-      z-index: 3;
-      perspective: 300px;           /* perspective plus forte pour l'effet */
-      perspective-origin: 50% 80%;
-      overflow: hidden;
-    }
-
-    .crawl-wrapper {
-      position: absolute;
-      top: 100%;                    /* démarre hors champ par le bas */
-      left: 50%;
+      top: 0;
+      left: 0;
       width: 100%;
-      max-width: none;
-      transform: translateX(-50%) rotateX(15deg); /* angle Star Wars typique */
-      transform-origin: 50% 100%;
-      animation: crawl 45s linear forwards;  /* 45 secondes exactement */
-      will-change: transform, opacity;
-      text-align: center;
-      line-height: 1.3;
+      height: 100%;
+      perspective: 200px; /* perspective plus faible pour un effet plus plat */
+      perspective-origin: 50% 70%;
+      overflow: hidden;
+      z-index: 2;
     }
 
-    /* Animation simplifiée mais efficace */
+    /* Le texte qui défile */
+    .crawl {
+      position: absolute;
+      top: 100%; /* commence juste en dessous de l'écran */
+      left: 50%;
+      width: 90%;
+      transform: translateX(-50%) rotateX(10deg); /* angle très plat */
+      color: #FFD700; /* or */
+      font-size: 6vw; /* taille proportionnelle à l'écran */
+      font-weight: bold;
+      text-align: center;
+      line-height: 1.5;
+      letter-spacing: 0.2em;
+      text-shadow: 0 0 20px #FFD700, 0 0 40px rgba(255, 215, 0, 0.5);
+      animation: crawl 45s linear forwards;
+    }
+
+    /* Animation */
     @keyframes crawl {
       0% {
         top: 100%;
         opacity: 1;
-        transform: translateX(-50%) rotateX(15deg) translateZ(0);
-      }
-      20% {
-        opacity: 1;
       }
       100% {
-        top: -800%;                 /* sortie par le haut */
+        top: -300%; /* sort par le haut */
         opacity: 0;
-        transform: translateX(-50%) rotateX(20deg) translateZ(-300px); /* léger effet de profondeur */
       }
     }
 
-    /* Style du texte : massif, large, jaune Star Wars */
-    .crawl-wrapper p {
-      font-size: clamp(10rem, 22vw, 40rem);   /* énorme */
-      font-weight: 400;
-      line-height: 1.2;
-      letter-spacing: 0.1em;                   /* espacement large */
-      margin-bottom: 0.5em;
-      color: #feda4a;                           /* jaune emblématique */
-      text-shadow:
-        0 0 50px rgba(255, 220, 100, 0.7),
-        0 0 100px rgba(0, 0, 0, 0.9),
-        0 10px 20px #000;
-      white-space: pre-wrap;
-      word-break: break-word;
-      width: 100%;
-      text-transform: uppercase;                /* tout en majuscules comme Star Wars */
+    /* Paragraphes */
+    .crawl p {
+      margin-bottom: 1em;
     }
 
-    /* Dernière phrase encore plus massive, avec la police Cinzel pour le contraste */
-    .crawl-wrapper p.final {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(16rem, 32vw, 60rem);
-      font-weight: 700;
-      letter-spacing: 0.25em;
-      color: #fff7e6;
-      text-shadow:
-        0 0 100px rgba(255, 220, 100, 0.9),
-        0 0 200px rgba(255, 180, 60, 0.7),
-        0 20px 40px #000;
-      margin-top: 0.3em;
+    /* Dernière phrase plus grosse */
+    .crawl .final {
+      font-size: 8vw;
+      margin-top: 2em;
     }
 
-    /* Bouton discret "go on?" */
-    .btn-continue {
+    /* Bouton go on */
+    .btn {
       position: fixed;
-      bottom: 32px;
-      right: 42px;
-      z-index: 20;
+      bottom: 30px;
+      right: 30px;
+      z-index: 10;
       background: transparent;
       border: none;
-      border-bottom: 1px solid rgba(254, 218, 74, 0.4);
-      color: rgba(254, 218, 74, 0.6);
-      font-family: 'Cinzel', serif;
-      font-size: 1.2rem;
+      border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+      color: rgba(255, 215, 0, 0.5);
+      font-family: Arial, sans-serif;
+      font-size: 1rem;
       letter-spacing: 0.3em;
       text-transform: lowercase;
       cursor: pointer;
-      padding: 6px 4px 8px;
+      padding: 5px;
       opacity: 0;
-      transition: opacity 1.8s ease, color 0.3s, border-color 0.3s;
+      transition: opacity 1s;
       pointer-events: none;
-      backdrop-filter: blur(2px);
     }
 
-    .btn-continue.visible {
+    .btn.visible {
       opacity: 1;
       pointer-events: auto;
     }
 
-    .btn-continue:hover {
-      color: #feda4a;
-      border-bottom-color: rgba(254, 218, 74, 0.9);
+    .btn:hover {
+      color: gold;
+      border-bottom-color: gold;
     }
 
     audio {
-      position: absolute;
-      width: 0;
-      height: 0;
-      opacity: 0;
-      pointer-events: none;
+      display: none;
     }
   </style>
 </head>
 <body>
   <div class="background"></div>
   <div class="overlay"></div>
-  <div class="grain"></div>
 
-  <!-- Audio avec gestion robuste -->
-  <audio autoplay loop playsinline id="introAudio">
+  <audio autoplay loop>
     <source src="musique_intro.mp3" type="audio/mpeg">
   </audio>
 
   <div class="scene">
-    <div class="crawl-wrapper">
-      <!-- Texte en majuscules comme dans Star Wars -->
-      <p>LONGTEMPS AVANT QUE LE MONDE<br>NE S'ALLUME…</p>
-      <p>NOUS ÉTIONS DÉJÀ LÀ.</p>
-      <p>
-        LES MAINS DANS LE FROID,<br>
-        LES GENOUX DANS LA POUSSIÈRE,<br>
-        PORTANT UN UNIVERS ENTIER<br>
-        QUI N'AVAIT PAS LE DROIT DE VACILLER.
-      </p>
-      <p>
-        NOUS COMBATTIONS SANS RELÂCHE LA CHUTE.<br>
-        EN SILENCE.
-      </p>
-      <p>
-        LAISSANT UN PEU DE NOUS DANS CHAQUE RECOIN,<br>
-        POUR QUE LE RÊVE TIENNE DEBOUT.
-      </p>
-      <p>
-        CEUX QUI TOMBENT ENSEMBLE<br>
-        NE TOMBENT JAMAIS SEULS.
-      </p>
-      <p>FIERS D'UN ORGUEIL QUE RIEN N'EFFACE.</p>
-      <p>
-        ET PUIS LA RUMEUR COMMENÇA À GRONDER —<br>
-        JUSQU'À CE QUE L'ARTISTE FRANCHISSE<br>
-        LE CERCLE INCANDESCENT.
-      </p>
-      <p class="final">ET LE MONDE S'EMBRASE</p>
+    <div class="crawl">
+      <p>Longtemps avant que le monde<br>ne s'allume…</p>
+      <p>nous étions déjà là.</p>
+      <p>Les mains dans le froid,<br>les genoux dans la poussière,<br>portant un univers entier<br>qui n'avait pas le droit de vaciller.</p>
+      <p>Nous combattions sans relâche la chute.<br>En silence.</p>
+      <p>Laissant un peu de nous dans chaque recoin,<br>pour que le rêve tienne debout.</p>
+      <p>Ceux qui tombent ensemble<br>ne tombent jamais seuls.</p>
+      <p>Fiers d'un orgueil que rien n'efface.</p>
+      <p>Et puis la rumeur commença à gronder —<br>jusqu'à ce que l'artiste franchisse<br>le cercle incandescent.</p>
+      <p class="final">Et le monde s'embrase.</p>
     </div>
   </div>
 
-  <button class="btn-continue" id="btnContinue" onclick="window.location.href='page2.html'">
-    go on?
-  </button>
+  <button class="btn" id="continueBtn" onclick="window.location.href='page2.html'">go on?</button>
 
   <script>
-    (function() {
-      const audio = document.getElementById('introAudio');
-      const btn = document.getElementById('btnContinue');
-      
-      // Gestion de l'autoplay avec fallback
-      let playPromise = audio.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          console.log('Autoplay bloqué, attente interaction');
-          const startAudio = () => {
-            audio.play().catch(e => console.log('Échec lecture audio'));
-            document.removeEventListener('click', startAudio);
-            document.removeEventListener('touchstart', startAudio);
-            document.removeEventListener('keydown', startAudio);
-          };
-          document.addEventListener('click', startAudio, { once: true });
-          document.addEventListener('touchstart', startAudio, { once: true });
-          document.addEventListener('keydown', startAudio, { once: true });
-        });
-      }
-      
-      // Bouton apparaît après 40 secondes (juste avant la fin)
-      setTimeout(() => {
-        btn.classList.add('visible');
-      }, 40000);
-    })();
+    // Bouton apparaît après 40 secondes
+    setTimeout(() => {
+      document.getElementById('continueBtn').classList.add('visible');
+    }, 40000);
+
+    // Gestion audio
+    const audio = document.querySelector('audio');
+    audio.volume = 0.5;
+    
+    // Fallback si autoplay bloqué
+    audio.play().catch(() => {
+      const playAudio = () => {
+        audio.play();
+        document.removeEventListener('click', playAudio);
+      };
+      document.addEventListener('click', playAudio);
+    });
   </script>
 </body>
 </html>
