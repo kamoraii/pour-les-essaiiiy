@@ -26,23 +26,38 @@ background-size:cover;
 background-position:center;
 z-index:0;
 filter:grayscale(30%) contrast(1.1) brightness(0.9);
-/* Animation de balancement très lent */
-animation: breathe 55s ease-in-out infinite alternate;
 }
-@keyframes breathe {
-  0% { background-position: 48% 48%; }
-  100% { background-position: 52% 52%; }
+/* Calque avec ciel éclairci */
+.sky-bright {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("fondecran_ciel_clair.jpg");
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  animation: brightenSky 25s linear 30s forwards; /* commence à 30s, dure 25s */
+  pointer-events: none;
+  z-index: 1;
 }
+
+@keyframes brightenSky {
+  0% { opacity: 0; }
+  100% { opacity: 0.2; }
+}
+
 .overlay{
 position:fixed;
 inset:0;
 background:radial-gradient(circle at 50% 30%,rgba(0,0,0,0.3) 0%,rgba(0,0,0,0.85) 100%);
-z-index:1;
+z-index:2;
 }
 .grain{
 position:fixed;
 inset:0;
-z-index:2;
+z-index:3;
 pointer-events:none;
 opacity:0.05;
 background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
@@ -168,22 +183,62 @@ pointer-events: auto;
 50%{text-shadow:0 0 40px rgba(255,220,150,1),0 0 80px rgba(255,200,120,0.8);}
 100%{text-shadow:0 0 10px rgba(255,230,170,0.5);}
 }
+/* Étoile filante */
+.shooting-star {
+  position: fixed;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 8px 2px rgba(255,255,255,0.6), 15px 5px 12px -5px rgba(255,255,255,0.3);
+  z-index: 15;
+  pointer-events: none;
+  opacity: 0;
+}
+.shooting-star.active {
+  opacity: 1;
+  animation: shoot 2s linear forwards;
+}
+@keyframes shoot {
+  0% {
+    left: 50%;
+    top: 5%;
+    opacity: 1;
+    box-shadow: 0 0 8px 2px rgba(255,255,255,0.6), 0 0 0 0 transparent;
+  }
+  30% {
+    box-shadow: 0 0 12px 3px rgba(255,255,255,0.7), 25px 8px 15px -5px rgba(255,255,255,0.4);
+  }
+  100% {
+    left: 60%;
+    top: 15%;
+    opacity: 0;
+    box-shadow: 0 0 5px 1px rgba(255,255,255,0.4), 40px 15px 20px -8px rgba(255,255,255,0.2);
+  }
+}
 audio{
 display:none;
 }
 </style>
 </head>
 <body>
+<!-- Fond original -->
 <div class="background"></div>
+<!-- Calque avec ciel éclairci -->
+<div class="sky-bright"></div>
+
 <div class="overlay"></div>
 <div class="grain"></div>
+<!-- Étoile filante -->
+<div class="shooting-star" id="shootingStar"></div>
+
 <button class="invitation" id="invitation">my world</button>
 <audio id="introAudio" preload="auto" style="display:none">
 <source src="musique_intro.mp3" type="audio/mpeg">
 </audio>
 <div class="scene" id="scene">
 <div class="crawl-wrapper" id="crawl">
-<p>Longtemps avant que le monde ne s'allume  </p>
+<p>Longtemps avant que le monde ne s'allume…</p>
 <p>nous étions déjà là.</p>
 <p>Les mains dans le froid,</p>
 <p>les genoux dans la poussière,</p>
@@ -210,27 +265,36 @@ const scene = document.getElementById("scene")
 const audioElement = document.getElementById("introAudio")
 const crawl = document.getElementById("crawl")
 const btn = document.getElementById("btnContinue")
+const shootingStar = document.getElementById("shootingStar")
+
 const crawlDuration = 110
 const fadeStart = 36
 const fadeDuration = 15
 const buttonAppearTime = 45
+const shootingStarTime = 30
+
 let started = false
 let fadeStarted = false
 let audioContext = null
 let gainNode = null
 let source = null
+
 function startExperience() {
   if (started) return
   started = true
+
   invitation.style.display = "none"
   scene.classList.add("active")
+
   crawl.style.animation = "none"
   crawl.offsetHeight
   crawl.style.animation = `crawl ${crawlDuration}s linear -5s forwards`
+
   audioContext = new (window.AudioContext || window.webkitAudioContext)()
   gainNode = audioContext.createGain()
   gainNode.gain.value = 1
   gainNode.connect(audioContext.destination)
+
   fetch('musique_intro.mp3')
     .then(response => response.arrayBuffer())
     .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
@@ -243,10 +307,19 @@ function startExperience() {
       checkTime(startTime)
     })
     .catch(e => console.error('Erreur lecture audio:', e))
+
   setTimeout(() => {
     btn.classList.add("visible")
   }, buttonAppearTime * 1000)
+
+  setTimeout(() => {
+    shootingStar.classList.add('active')
+    setTimeout(() => {
+      shootingStar.classList.remove('active')
+    }, 2000)
+  }, shootingStarTime * 1000)
 }
+
 function checkTime(startTime) {
   const checkInterval = setInterval(() => {
     if (!audioContext) return
@@ -271,6 +344,7 @@ function checkTime(startTime) {
     }
   }, 100)
 }
+
 invitation.addEventListener("click", startExperience)
 invitation.addEventListener("touchstart", startExperience)
 </script>
