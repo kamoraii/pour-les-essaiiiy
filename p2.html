@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page 2</title>
+
+<style>
+
+body{
+margin:0;
+background:black;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;
+}
+
+img{
+width:100%;
+height:100%;
+object-fit:contain;
+}
+
+.next{
+position:fixed;
+bottom:30px;
+right:40px;
+background:transparent;
+border:none;
+color:#ffe9b8;
+font-size:1rem;
+letter-spacing:0.2em;
+cursor:pointer;
+opacity:0.6;
+}
+
+.next:hover{
+opacity:1;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<img src="p2_photo1.jpg">
+
+<button class="next" onclick="window.location.href='p3.html'">
+next
+</button>
+
+</body>
+
+</html>
