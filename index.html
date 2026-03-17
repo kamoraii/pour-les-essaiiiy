@@ -14,7 +14,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet">
 
 <style>
-/* Tous tes styles inchangés */
 *{margin:0;padding:0;box-sizing:border-box;}
 body{
 height:100vh;
@@ -140,7 +139,7 @@ position:fixed;
 top:45%;
 left:50%;
 transform:translate(-50%,-50%);
-font-family:'Shadows Into Light', cursive;  /* Nouvelle police */
+font-family:'Shadows Into Light', cursive;
 background:transparent;
 border:none;
 color:#ffe9b8;
@@ -152,16 +151,19 @@ text-shadow:
 0 0 40px rgba(255,200,120,0.9),
 0 0 80px rgba(255,190,80,0.7);
 opacity:0;
-transition:opacity 4s;        /* Transition de 4 secondes */
+transition:opacity 4s;
 animation:shine 4s infinite;
+z-index:10;
+pointer-events: none; /* ← DÉSACTIVE LES CLICS QUAND INVISIBLE */
+}
+.btn-continue.visible{
+opacity:1;
+pointer-events: auto; /* ← RÉACTIVE LES CLICS QUAND VISIBLE */
 }
 @keyframes shine{
 0%{text-shadow:0 0 10px rgba(255,230,170,0.5);}
 50%{text-shadow:0 0 40px rgba(255,220,150,1),0 0 80px rgba(255,200,120,0.8);}
 100%{text-shadow:0 0 10px rgba(255,230,170,0.5);}
-}
-.btn-continue.visible{
-opacity:1;
 }
 audio{
 display:none;
@@ -212,15 +214,14 @@ const audioElement = document.getElementById("introAudio")
 const crawl = document.getElementById("crawl")
 const btn = document.getElementById("btnContinue")
 
-const crawlDuration = 110          // durée de l'animation du texte
-const fadeStart = 36                // début du fondu audio
-const fadeDuration = 15             // durée du fondu
-const buttonAppearTime = 45         // apparition du bouton à 46 secondes
+const crawlDuration = 110
+const fadeStart = 36
+const fadeDuration = 15
+const buttonAppearTime = 45
 
 let started = false
 let fadeStarted = false
 
-// Variables pour l'API Web Audio
 let audioContext = null
 let gainNode = null
 let source = null
@@ -232,19 +233,16 @@ function startExperience() {
   invitation.style.display = "none"
   scene.classList.add("active")
 
-  // Animation du texte
   crawl.style.animation = "none"
   crawl.offsetHeight
   crawl.style.animation = `crawl ${crawlDuration}s linear -5s forwards`
 
-  // Initialisation de l'API Web Audio
   audioContext = new (window.AudioContext || window.webkitAudioContext)()
   
   gainNode = audioContext.createGain()
   gainNode.gain.value = 1
   gainNode.connect(audioContext.destination)
 
-  // Chargement et lecture du fichier audio
   fetch('musique_intro.mp3')
     .then(response => response.arrayBuffer())
     .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
@@ -259,7 +257,6 @@ function startExperience() {
     })
     .catch(e => console.error('Erreur lecture audio:', e))
 
-  // Apparition du bouton "go on?" après buttonAppearTime secondes
   setTimeout(() => {
     btn.classList.add("visible")
   }, buttonAppearTime * 1000)
