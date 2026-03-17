@@ -6,13 +6,10 @@
 <title>Dans l'ombre — my world</title>
 <link rel="icon" type="image/jpeg" href="icone.jpeg">
 <link rel="apple-touch-icon" href="icone.jpeg">
-
-<!-- Polices Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Marcellus&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet">
-
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 body{
@@ -30,16 +27,33 @@ background-position:center;
 z-index:0;
 filter:grayscale(30%) contrast(1.1) brightness(0.9);
 }
+.stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('stars.png');
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+  pointer-events: none;
+  animation: moveStars 200s linear infinite;
+}
+@keyframes moveStars {
+  0% { background-position: 0 0; }
+  100% { background-position: 10px 10px; }
+}
 .overlay{
 position:fixed;
 inset:0;
 background:radial-gradient(circle at 50% 30%,rgba(0,0,0,0.3) 0%,rgba(0,0,0,0.85) 100%);
-z-index:1;
+z-index:2;
 }
 .grain{
 position:fixed;
 inset:0;
-z-index:2;
+z-index:3;
 pointer-events:none;
 opacity:0.05;
 background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
@@ -154,16 +168,56 @@ opacity:0;
 transition:opacity 4s;
 animation:shine 4s infinite;
 z-index:10;
-pointer-events: none; /* ← DÉSACTIVE LES CLICS QUAND INVISIBLE */
+pointer-events: none;
 }
 .btn-continue.visible{
 opacity:1;
-pointer-events: auto; /* ← RÉACTIVE LES CLICS QUAND VISIBLE */
+pointer-events: auto;
 }
 @keyframes shine{
 0%{text-shadow:0 0 10px rgba(255,230,170,0.5);}
 50%{text-shadow:0 0 40px rgba(255,220,150,1),0 0 80px rgba(255,200,120,0.8);}
 100%{text-shadow:0 0 10px rgba(255,230,170,0.5);}
+}
+.shooting-star {
+  position: fixed;
+  top: 20%;
+  left: -100px;
+  width: 4px;
+  height: 4px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 10px 2px rgba(255,255,255,0.8);
+  z-index: 15;
+  pointer-events: none;
+  opacity: 0;
+  transform: rotate(45deg);
+}
+.shooting-star.active {
+  opacity: 1;
+  animation: shoot 2s linear forwards;
+}
+@keyframes shoot {
+  0% {
+    left: -100px;
+    top: 20%;
+    width: 4px;
+    height: 4px;
+    box-shadow: 0 0 10px 2px white;
+  }
+  50% {
+    width: 100px;
+    height: 2px;
+    box-shadow: 0 0 20px 5px white;
+  }
+  100% {
+    left: 120%;
+    top: 30%;
+    width: 4px;
+    height: 4px;
+    box-shadow: 0 0 10px 2px white;
+    opacity: 0;
+  }
 }
 audio{
 display:none;
@@ -171,17 +225,15 @@ display:none;
 </style>
 </head>
 <body>
-
 <div class="background"></div>
+<div class="stars"></div>
 <div class="overlay"></div>
 <div class="grain"></div>
-
+<div class="shooting-star"></div>
 <button class="invitation" id="invitation">my world</button>
-
 <audio id="introAudio" preload="auto" style="display:none">
 <source src="musique_intro.mp3" type="audio/mpeg">
 </audio>
-
 <div class="scene" id="scene">
 <div class="crawl-wrapper" id="crawl">
 <p>Longtemps avant que le monde ne s'allume…</p>
@@ -202,47 +254,36 @@ display:none;
 <p class="final">Et le monde s'embrase.</p>
 </div>
 </div>
-
 <button class="btn-continue" id="btnContinue" onclick="window.location.href='p1.html'">
 go on?
 </button>
-
 <script>
 const invitation = document.getElementById("invitation")
 const scene = document.getElementById("scene")
 const audioElement = document.getElementById("introAudio")
 const crawl = document.getElementById("crawl")
 const btn = document.getElementById("btnContinue")
-
 const crawlDuration = 110
 const fadeStart = 36
 const fadeDuration = 15
 const buttonAppearTime = 45
-
 let started = false
 let fadeStarted = false
-
 let audioContext = null
 let gainNode = null
 let source = null
-
 function startExperience() {
   if (started) return
   started = true
-
   invitation.style.display = "none"
   scene.classList.add("active")
-
   crawl.style.animation = "none"
   crawl.offsetHeight
   crawl.style.animation = `crawl ${crawlDuration}s linear -5s forwards`
-
   audioContext = new (window.AudioContext || window.webkitAudioContext)()
-  
   gainNode = audioContext.createGain()
   gainNode.gain.value = 1
   gainNode.connect(audioContext.destination)
-
   fetch('musique_intro.mp3')
     .then(response => response.arrayBuffer())
     .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
@@ -251,30 +292,30 @@ function startExperience() {
       source.buffer = buffer
       source.connect(gainNode)
       source.start(0)
-      
       const startTime = audioContext.currentTime
       checkTime(startTime)
     })
     .catch(e => console.error('Erreur lecture audio:', e))
-
   setTimeout(() => {
     btn.classList.add("visible")
   }, buttonAppearTime * 1000)
+  setTimeout(() => {
+    const shootingStar = document.querySelector('.shooting-star');
+    shootingStar.classList.add('active');
+    setTimeout(() => {
+      shootingStar.classList.remove('active');
+    }, 2000);
+  }, 20000);
 }
-
 function checkTime(startTime) {
   const checkInterval = setInterval(() => {
     if (!audioContext) return
-    
     const elapsed = audioContext.currentTime - startTime
-    
     if (!fadeStarted && elapsed >= fadeStart) {
       fadeStarted = true
       clearInterval(checkInterval)
-      
       const fadeStartTime = audioContext.currentTime
       const targetTime = fadeStartTime + fadeDuration
-      
       function fadeLoop() {
         const now = audioContext.currentTime
         if (now >= targetTime) {
@@ -282,21 +323,16 @@ function checkTime(startTime) {
           if (source) source.stop()
           return
         }
-        
         const progress = (now - fadeStartTime) / fadeDuration
         gainNode.gain.value = 1 - progress
-        
         requestAnimationFrame(fadeLoop)
       }
-      
       requestAnimationFrame(fadeLoop)
     }
   }, 100)
 }
-
 invitation.addEventListener("click", startExperience)
 invitation.addEventListener("touchstart", startExperience)
 </script>
-
 </body>
 </html>
