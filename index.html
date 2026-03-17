@@ -26,34 +26,23 @@ background-size:cover;
 background-position:center;
 z-index:0;
 filter:grayscale(30%) contrast(1.1) brightness(0.9);
+/* Animation de balancement très lent */
+animation: breathe 180s ease-in-out infinite alternate;
 }
-.stars {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('stars.png');
-  background-size: cover;
-  background-position: center;
-  z-index: 1;
-  pointer-events: none;
-  animation: moveStars 200s linear infinite;
-}
-@keyframes moveStars {
-  0% { background-position: 0 0; }
-  100% { background-position: 10px 10px; }
+@keyframes breathe {
+  0% { background-position: 48% 48%; }
+  100% { background-position: 52% 52%; }
 }
 .overlay{
 position:fixed;
 inset:0;
 background:radial-gradient(circle at 50% 30%,rgba(0,0,0,0.3) 0%,rgba(0,0,0,0.85) 100%);
-z-index:2;
+z-index:1;
 }
 .grain{
 position:fixed;
 inset:0;
-z-index:3;
+z-index:2;
 pointer-events:none;
 opacity:0.05;
 background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
@@ -179,46 +168,6 @@ pointer-events: auto;
 50%{text-shadow:0 0 40px rgba(255,220,150,1),0 0 80px rgba(255,200,120,0.8);}
 100%{text-shadow:0 0 10px rgba(255,230,170,0.5);}
 }
-.shooting-star {
-  position: fixed;
-  top: 20%;
-  left: -100px;
-  width: 4px;
-  height: 4px;
-  background: white;
-  border-radius: 50%;
-  box-shadow: 0 0 10px 2px rgba(255,255,255,0.8);
-  z-index: 15;
-  pointer-events: none;
-  opacity: 0;
-  transform: rotate(45deg);
-}
-.shooting-star.active {
-  opacity: 1;
-  animation: shoot 2s linear forwards;
-}
-@keyframes shoot {
-  0% {
-    left: -100px;
-    top: 20%;
-    width: 4px;
-    height: 4px;
-    box-shadow: 0 0 10px 2px white;
-  }
-  50% {
-    width: 100px;
-    height: 2px;
-    box-shadow: 0 0 20px 5px white;
-  }
-  100% {
-    left: 120%;
-    top: 30%;
-    width: 4px;
-    height: 4px;
-    box-shadow: 0 0 10px 2px white;
-    opacity: 0;
-  }
-}
 audio{
 display:none;
 }
@@ -226,10 +175,8 @@ display:none;
 </head>
 <body>
 <div class="background"></div>
-<div class="stars"></div>
 <div class="overlay"></div>
 <div class="grain"></div>
-<div class="shooting-star"></div>
 <button class="invitation" id="invitation">my world</button>
 <audio id="introAudio" preload="auto" style="display:none">
 <source src="musique_intro.mp3" type="audio/mpeg">
@@ -299,13 +246,6 @@ function startExperience() {
   setTimeout(() => {
     btn.classList.add("visible")
   }, buttonAppearTime * 1000)
-  setTimeout(() => {
-    const shootingStar = document.querySelector('.shooting-star');
-    shootingStar.classList.add('active');
-    setTimeout(() => {
-      shootingStar.classList.remove('active');
-    }, 2000);
-  }, 20000);
 }
 function checkTime(startTime) {
   const checkInterval = setInterval(() => {
