@@ -1,46 +1,77 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Page 1</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&display=swap" rel="stylesheet">
+
 <style>
 
+*{margin:0;padding:0;box-sizing:border-box;}
+
 body{
-margin:0;
-background:black;
-color:#ffe9b8;
-font-family:Marcellus, serif;
+background:#000;
+font-family:'Marcellus',serif;
+overflow:hidden;
+}
+
+/* IMAGE PLEIN ÉCRAN */
+
+.image-container{
+position:fixed;
+inset:0;
 display:flex;
 justify-content:center;
 align-items:center;
-height:100vh;
-flex-direction:column;
+background:#000;
 }
 
-button{
-margin-top:40px;
+.image-container img{
+max-width:100%;
+max-height:100%;
+object-fit:contain;
+}
+
+/* BOUTON SUIVANT */
+
+.next-btn{
+position:fixed;
+bottom:30px;
+right:40px;
+
 background:transparent;
 border:none;
-color:#ffe9b8;
-font-size:1.5rem;
+border-bottom:1px solid rgba(255,230,180,0.4);
+
+color:rgba(255,230,180,0.7);
+
+font-size:1rem;
+letter-spacing:0.3em;
+
 cursor:pointer;
+
+transition:all 0.3s ease;
+}
+
+.next-btn:hover{
+color:#ffe9b8;
+border-bottom-color:#ffe9b8;
 }
 
 </style>
-
 </head>
 
 <body>
 
-<h1>Page 1</h1>
+<div class="image-container">
+  <img src="p1_photo1.jpg" alt="photo page 1">
+</div>
 
-<button onclick="window.location.href='p2.html'">
+<button class="next-btn" onclick="window.location.href='p2.html'">
 next
 </button>
 
 </body>
-
 </html>
