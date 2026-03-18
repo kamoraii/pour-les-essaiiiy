@@ -216,13 +216,13 @@ pointer-events: auto;
     box-shadow: 0 0 5px 1px rgba(255,255,255,0.4), 40px 15px 20px -8px rgba(255,255,255,0.2);
   }
 }
-/* Lien de test très discret */
+/* Lien de test discret (un peu plus visible) */
 .skip-link {
   position: fixed;
   bottom: 15px;
   right: 15px;
   font-size: 20px;
-  color: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.4); /* modifié de 0.15 à 0.4 */
   text-decoration: none;
   z-index: 100;
   transition: color 0.3s, text-shadow 0.3s;
@@ -279,7 +279,7 @@ display:none;
 go on?
 </button>
 
-<!-- Lien de test très discret -->
+<!-- Lien de test discret -->
 <a href="p1.html" class="skip-link" title="Passer le générique (pour test)">⏩</a>
 
 <script>
