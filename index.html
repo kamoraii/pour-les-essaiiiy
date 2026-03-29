@@ -9,25 +9,30 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Marcellus&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{
-height:100vh;
-overflow:hidden;
-background:#000;
-font-family:'Marcellus',serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-.background{
-position:fixed;
-inset:0;
-background-image:url("fondecran.jpg");
-background-size:cover;
-background-position:center;
-z-index:0;
-filter:grayscale(30%) contrast(1.1) brightness(0.9);
+
+body {
+  height: 100vh;
+  overflow: hidden;
+  background: #000;
+  font-family: 'Marcellus', serif;
 }
-/* Calque avec ciel éclairci */
+
+.background {
+  position: fixed;
+  inset: 0;
+  background-image: url("fondecran.jpg");
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  filter: grayscale(30%) contrast(1.1) brightness(0.9);
+}
+
 .sky-bright {
   position: fixed;
   top: 0;
@@ -48,328 +53,352 @@ filter:grayscale(30%) contrast(1.1) brightness(0.9);
   100% { opacity: 1; }
 }
 
-.overlay{
-position:fixed;
-inset:0;
-background:radial-gradient(circle at 50% 30%,rgba(0,0,0,0.3) 0%,rgba(0,0,0,0.85) 100%);
-z-index:2;
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 50% 30%, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.85) 100%);
+  z-index: 2;
 }
-.grain{
-position:fixed;
-inset:0;
-z-index:3;
-pointer-events:none;
-opacity:0.05;
-background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-background-size:150px;
+
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 150px;
 }
-.invitation{
-position:fixed;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-color:#ffe9b8;
-font-size:1.6rem;
-letter-spacing:0.35em;
-border:none;
-background:transparent;
-cursor:pointer;
-text-shadow:0 0 20px rgba(255,230,180,0.6);
-animation:pulse 3s infinite;
-z-index:20;
+
+.invitation {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ffe9b8;
+  font-size: 1.6rem;
+  letter-spacing: 0.35em;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-shadow: 0 0 20px rgba(255, 230, 180, 0.6);
+  animation: pulse 3s infinite;
+  z-index: 20;
 }
-@keyframes pulse{
-0%{opacity:0.4;}
-50%{opacity:1;}
-100%{opacity:0.4;}
+
+@keyframes pulse {
+  0% { opacity: 0.4; }
+  50% { opacity: 1; }
+  100% { opacity: 0.4; }
 }
-.scene{
-position:fixed;
-inset:0;
-perspective:380px;
-perspective-origin:50% 85%;
-overflow:hidden;
-opacity:0;
-transition:opacity .5s;
-z-index:5;
-mask-image: linear-gradient(
-to top,
-black 0%,
-black 60%,
-rgba(0,0,0,0.9) 75%,
-rgba(0,0,0,0.4) 85%,
-transparent 100%
-);
--webkit-mask-image: linear-gradient(
-to top,
-black 0%,
-black 60%,
-rgba(0,0,0,0.9) 75%,
-rgba(0,0,0,0.4) 85%,
-transparent 100%
-);
+
+.scene {
+  position: fixed;
+  inset: 0;
+  perspective: 380px;
+  perspective-origin: 50% 85%;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity .5s;
+  z-index: 5;
+  mask-image: linear-gradient(
+    to top,
+    black 0%,
+    black 60%,
+    rgba(0,0,0,0.9) 75%,
+    rgba(0,0,0,0.4) 85%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to top,
+    black 0%,
+    black 60%,
+    rgba(0,0,0,0.9) 75%,
+    rgba(0,0,0,0.4) 85%,
+    transparent 100%
+  );
 }
-.scene.active{
-opacity:1;
+
+.scene.active {
+  opacity: 1;
 }
-.crawl-wrapper{
-position:absolute;
-top:100%;
-left:50%;
-width:130%;
-transform:translateX(-50%) rotateX(25deg) scaleY(0.85);
-transform-origin:50% 100%;
-text-align:center;
-line-height:1.6;
-animation:none;
+
+.crawl-wrapper {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: 130%;
+  transform: translateX(-50%) rotateX(25deg) scaleY(0.85);
+  transform-origin: 50% 100%;
+  text-align: center;
+  line-height: 1.6;
 }
-@keyframes crawl{
-0%{
-top:100%;
-transform:translateX(-50%) rotateX(25deg) scaleY(0.85);
+
+.crawl-wrapper p {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  letter-spacing: 0.05em;
+  margin-bottom: 1.2em;
+  color: #ffe9b8;
+  text-shadow: 0 0 40px rgba(255, 220, 160, 0.7), 0 0 80px rgba(0, 0, 0, 0.9), 0 10px 20px #000;
 }
-100%{
-top:-700%;
-transform:translateX(-50%) rotateX(28deg) scaleY(0.85);
+
+/* Style pour la dernière phrase qui va rester figée au centre */
+.crawl-wrapper p.final {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  letter-spacing: 0.14em;
+  color: #ffe9b8;
+  text-shadow: 0 0 100px rgba(255, 230, 170, 1), 0 0 180px rgba(255, 210, 130, 0.8), 0 0 280px rgba(255, 190, 80, 0.6);
 }
+
+/* Animation du crawl */
+@keyframes crawl {
+  0% {
+    top: 100%;
+    transform: translateX(-50%) rotateX(25deg) scaleY(0.85);
+  }
+  100% {
+    top: -700%;
+    transform: translateX(-50%) rotateX(28deg) scaleY(0.85);
+  }
 }
-.crawl-wrapper p{
-font-size:clamp(1.8rem,4vw,3rem);
-letter-spacing:0.05em;
-margin-bottom:1.2em;
-color:#ffe9b8;
-text-shadow:
-0 0 40px rgba(255,220,160,0.7),
-0 0 80px rgba(0,0,0,0.9),
-0 10px 20px #000;
+
+/* Animation figée pour la dernière phrase (après la fin du crawl) */
+.crawl-wrapper.stopped {
+  animation: none !important;
+  position: absolute;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) rotateX(0deg) scaleY(1) !important;
+  width: 90% !important;
 }
-.crawl-wrapper p.final{
-font-size:clamp(2.5rem,6vw,4rem);
-letter-spacing:0.14em;
-color:#ffe9b8;
-text-shadow:
-0 0 100px rgba(255,230,170,1),
-0 0 180px rgba(255,210,130,0.8),
-0 0 280px rgba(255,190,80,0.6);
+
+.crawl-wrapper.stopped p {
+  margin-bottom: 0;
 }
-.btn-continue{
-position:fixed;
-top:45%;
-left:50%;
-transform:translate(-50%,-50%);
-font-family:'Shadows Into Light', cursive;
-background:transparent;
-border:none;
-color:#ffe9b8;
-font-size:1.8rem;
-letter-spacing:0.3em;
-cursor:pointer;
-text-shadow:
-0 0 20px rgba(255,230,170,1),
-0 0 40px rgba(255,200,120,0.9),
-0 0 80px rgba(255,190,80,0.7);
-opacity:0;
-transition:opacity 4s;
-animation:shine 4s infinite;
-z-index:10;
-pointer-events: none;
+
+.crawl-wrapper.stopped p:not(.final) {
+  display: none;
 }
-.btn-continue.visible{
-opacity:1;
-pointer-events: auto;
+
+.crawl-wrapper.stopped p.final {
+  display: block;
+  margin: 0;
+  font-size: clamp(2.5rem, 6vw, 4rem);
 }
-@keyframes shine{
-0%{text-shadow:0 0 10px rgba(255,230,170,0.5);}
-50%{text-shadow:0 0 40px rgba(255,220,150,1),0 0 80px rgba(255,200,120,0.8);}
-100%{text-shadow:0 0 10px rgba(255,230,170,0.5);}
+
+.btn-continue {
+  position: fixed;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Marcellus', serif;
+  background: transparent;
+  border: 2px solid #ffe9b8;
+  color: #ffe9b8;
+  padding: 12px 32px;
+  font-size: 1.2rem;
+  letter-spacing: 0.2em;
+  cursor: pointer;
+  text-shadow: 0 0 20px rgba(255, 230, 170, 0.8);
+  opacity: 0;
+  transition: opacity 1s, background 0.3s;
+  z-index: 10;
+  pointer-events: none;
+  border-radius: 40px;
+  backdrop-filter: blur(4px);
 }
-/* Étoile filante */
+
+.btn-continue:hover {
+  background: rgba(255, 233, 184, 0.2);
+  text-shadow: 0 0 30px rgba(255, 230, 170, 1);
+}
+
+.btn-continue.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .shooting-star {
   position: fixed;
   width: 2px;
   height: 2px;
   background: white;
   border-radius: 50%;
-  box-shadow: 0 0 8px 2px rgba(255,255,255,0.6), 15px 5px 12px -5px rgba(255,255,255,0.3);
+  box-shadow: 0 0 8px 2px rgba(255,255,255,0.6);
   z-index: 15;
   pointer-events: none;
   opacity: 0;
 }
+
 .shooting-star.active {
   opacity: 1;
   animation: shoot 2s linear forwards;
 }
+
 @keyframes shoot {
   0% {
     left: 50%;
     top: 5%;
     opacity: 1;
-    box-shadow: 0 0 8px 2px rgba(255,255,255,0.6), 0 0 0 0 transparent;
-  }
-  30% {
-    box-shadow: 0 0 12px 3px rgba(255,255,255,0.7), 25px 8px 15px -5px rgba(255,255,255,0.4);
   }
   100% {
     left: 60%;
     top: 15%;
     opacity: 0;
-    box-shadow: 0 0 5px 1px rgba(255,255,255,0.4), 40px 15px 20px -8px rgba(255,255,255,0.2);
   }
 }
-/* Lien de test discret (un peu plus visible) */
+
 .skip-link {
   position: fixed;
   bottom: 15px;
   right: 15px;
   font-size: 20px;
-  color: rgba(255, 255, 255, 0.4); /* modifié de 0.15 à 0.4 */
+  color: rgba(255, 255, 255, 0.4);
   text-decoration: none;
   z-index: 100;
-  transition: color 0.3s, text-shadow 0.3s;
-  line-height: 1;
-  padding: 5px;
+  transition: color 0.3s;
   font-family: sans-serif;
 }
-.skip-link:hover,
-.skip-link:active {
+
+.skip-link:hover {
   color: rgba(255, 255, 255, 0.8);
-  text-shadow: 0 0 5px white;
 }
-audio{
-display:none;
+
+audio {
+  display: none;
 }
 </style>
 </head>
 <body>
-<!-- Fond original -->
-<div class="background"></div>
-<!-- Calque avec ciel éclairci -->
-<div class="sky-bright"></div>
 
+<div class="background"></div>
+<div class="sky-bright"></div>
 <div class="overlay"></div>
 <div class="grain"></div>
-<!-- Étoile filante -->
 <div class="shooting-star" id="shootingStar"></div>
 
 <button class="invitation" id="invitation">my world</button>
-<audio id="introAudio" preload="auto" style="display:none">
-<source src="musique_intro.mp3" type="audio/mpeg">
+
+<audio id="introAudio" preload="auto">
+  <source src="musique_intro.mp3" type="audio/mpeg">
 </audio>
+
 <div class="scene" id="scene">
-<div class="crawl-wrapper" id="crawl">
-<p>Longtemps avant que le monde ne s'allume…</p>
-<p>nous étions déjà là.</p>
-<p>Les mains dans le froid,</p>
-<p>les genoux dans la poussière,</p>
-<p>portant un univers entier qui n'avait pas le droit de vaciller.</p>
-<p>Nous combattions sans relâche la chute.</p>
-<p>En silence.</p>
-<p>Laissant un peu de nous dans chaque recoin,</p>
-<p>pour que le rêve tienne debout.</p>
-<p>Ceux qui tombent</p>
-<p>ne tombent jamais seuls.</p>
-<p>Fiers d'un orgueil que rien n'efface.</p>
-<p>Et puis la rumeur commença à gronder</p>
-<p>jusqu'à ce que l'artiste franchisse</p>
-<p>le cercle incandescent.</p>
-<p class="final">Et le monde s'embrase.</p>
+  <div class="crawl-wrapper" id="crawl">
+    <p>Longtemps avant que le monde ne s'allume…</p>
+    <p>nous étions déjà là.</p>
+    <p>Les mains dans le froid,</p>
+    <p>les genoux dans la poussière,</p>
+    <p>portant un univers entier qui n'avait pas le droit de vaciller.</p>
+    <p>Nous combattions sans relâche la chute.</p>
+    <p>En silence.</p>
+    <p>Laissant un peu de nous dans chaque recoin,</p>
+    <p>pour que le rêve tienne debout.</p>
+    <p>Ceux qui tombent</p>
+    <p>ne tombent jamais seuls.</p>
+    <p>Fiers d'un orgueil que rien n'efface.</p>
+    <p>Et puis la rumeur commença à gronder</p>
+    <p>jusqu'à ce que l'artiste franchisse</p>
+    <p>le cercle incandescent.</p>
+    <p class="final">Et le monde s'embrase.</p>
+  </div>
 </div>
-</div>
+
 <button class="btn-continue" id="btnContinue" onclick="window.location.href='p1.html'">
-go on?
+  go on?
 </button>
 
-<!-- Lien de test discret -->
-<a href="p1.html" class="skip-link" title="Passer le générique (pour test)">⏩</a>
+<a href="p1.html" class="skip-link" title="Passer le générique">⏩</a>
 
 <script>
-const invitation = document.getElementById("invitation")
-const scene = document.getElementById("scene")
-const audioElement = document.getElementById("introAudio")
-const crawl = document.getElementById("crawl")
-const btn = document.getElementById("btnContinue")
-const shootingStar = document.getElementById("shootingStar")
+const invitation = document.getElementById("invitation");
+const scene = document.getElementById("scene");
+const audioElement = document.getElementById("introAudio");
+const crawlWrapper = document.getElementById("crawl");
+const btn = document.getElementById("btnContinue");
+const shootingStar = document.getElementById("shootingStar");
 
-const crawlDuration = 110
-const fadeStart = 36
-const fadeDuration = 15
-const buttonAppearTime = 45
-const shootingStarTime = 30
+// Durées (en secondes)
+const CRAWL_DURATION = 38;        // Durée totale du défilement
+const STOP_PHRASE_TIME = 36;       // Moment où la dernière phrase s'arrête (juste avant la fin)
+const BUTTON_APPEAR_TIME = 37;     // Apparition du bouton
+const SHOOTING_STAR_TIME = 8;      // Étoile filante
 
-let started = false
-let fadeStarted = false
-let audioContext = null
-let gainNode = null
-let source = null
+let started = false;
+let audioContext = null;
+let gainNode = null;
+let source = null;
+let stopTimeout = null;
 
 function startExperience() {
-  if (started) return
-  started = true
+  if (started) return;
+  started = true;
 
-  invitation.style.display = "none"
-  scene.classList.add("active")
+  invitation.style.display = "none";
+  scene.classList.add("active");
 
-  crawl.style.animation = "none"
-  crawl.offsetHeight
-  crawl.style.animation = `crawl ${crawlDuration}s linear -5s forwards`
+  // Lance l'animation du crawl
+  crawlWrapper.style.animation = `crawl ${CRAWL_DURATION}s linear forwards`;
 
-  audioContext = new (window.AudioContext || window.webkitAudioContext)()
-  gainNode = audioContext.createGain()
-  gainNode.gain.value = 1
-  gainNode.connect(audioContext.destination)
+  // Programme l'arrêt de la dernière phrase au centre
+  stopTimeout = setTimeout(() => {
+    // Figer la dernière phrase au milieu de l'écran
+    crawlWrapper.classList.add("stopped");
+  }, STOP_PHRASE_TIME * 1000);
+
+  // Apparition du bouton
+  setTimeout(() => {
+    btn.classList.add("visible");
+  }, BUTTON_APPEAR_TIME * 1000);
+
+  // Étoile filante
+  setTimeout(() => {
+    shootingStar.classList.add('active');
+    setTimeout(() => {
+      shootingStar.classList.remove('active');
+    }, 2000);
+  }, SHOOTING_STAR_TIME * 1000);
+
+  // Gestion de l'audio
+  audioContext = new (window.AudioContext || window.webkitAudioContext)();
+  gainNode = audioContext.createGain();
+  gainNode.gain.value = 1;
+  gainNode.connect(audioContext.destination);
 
   fetch('musique_intro.mp3')
     .then(response => response.arrayBuffer())
     .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
     .then(buffer => {
-      source = audioContext.createBufferSource()
-      source.buffer = buffer
-      source.connect(gainNode)
-      source.start(0)
-      const startTime = audioContext.currentTime
-      checkTime(startTime)
-    })
-    .catch(e => console.error('Erreur lecture audio:', e))
-
-  setTimeout(() => {
-    btn.classList.add("visible")
-  }, buttonAppearTime * 1000)
-
-  setTimeout(() => {
-    shootingStar.classList.add('active')
-    setTimeout(() => {
-      shootingStar.classList.remove('active')
-    }, 2000)
-  }, shootingStarTime * 1000)
-}
-
-function checkTime(startTime) {
-  const checkInterval = setInterval(() => {
-    if (!audioContext) return
-    const elapsed = audioContext.currentTime - startTime
-    if (!fadeStarted && elapsed >= fadeStart) {
-      fadeStarted = true
-      clearInterval(checkInterval)
-      const fadeStartTime = audioContext.currentTime
-      const targetTime = fadeStartTime + fadeDuration
-      function fadeLoop() {
-        const now = audioContext.currentTime
-        if (now >= targetTime) {
-          gainNode.gain.value = 0
-          if (source) source.stop()
-          return
+      source = audioContext.createBufferSource();
+      source.buffer = buffer;
+      source.connect(gainNode);
+      source.start(0);
+      
+      // Fondu de sortie 2 secondes avant la fin
+      setTimeout(() => {
+        const fadeDuration = 2;
+        const startTime = audioContext.currentTime;
+        const endTime = startTime + fadeDuration;
+        
+        function fadeOut() {
+          const now = audioContext.currentTime;
+          if (now >= endTime) {
+            gainNode.gain.value = 0;
+            if (source) source.stop();
+            return;
+          }
+          const progress = (now - startTime) / fadeDuration;
+          gainNode.gain.value = 1 - progress;
+          requestAnimationFrame(fadeOut);
         }
-        const progress = (now - fadeStartTime) / fadeDuration
-        gainNode.gain.value = 1 - progress
-        requestAnimationFrame(fadeLoop)
-      }
-      requestAnimationFrame(fadeLoop)
-    }
-  }, 100)
+        requestAnimationFrame(fadeOut);
+      }, (CRAWL_DURATION - 2) * 1000);
+    })
+    .catch(e => console.error('Erreur lecture audio:', e));
 }
 
-invitation.addEventListener("click", startExperience)
-invitation.addEventListener("touchstart", startExperience)
+invitation.addEventListener("click", startExperience);
+invitation.addEventListener("touchstart", startExperience);
 </script>
 </body>
 </html>
